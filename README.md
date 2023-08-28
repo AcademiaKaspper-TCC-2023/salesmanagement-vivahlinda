@@ -1,2 +1,2 @@
-# vivah-linda-store
+# salesmanagement-vivahlinda
 Este Trabalho de Conclusão de Curso (TCC) apresenta o desenvolvimento de um sistema sofisticado de Gestão de Vendas, especialmente projetado para a loja Vivah Linda. O sistema tem como objetivo otimizar e simplificar de forma significativa as operações de vendas, englobando desde o gerenciamento de estoque até o relacionamento com o cliente. A iniciativa busca não apenas melhorar a eficiência operacional, mas também oferecer insights estratégicos por meio de análises de dados, contribuindo assim para a rentabilidade e sustentabilidade do negócio.
