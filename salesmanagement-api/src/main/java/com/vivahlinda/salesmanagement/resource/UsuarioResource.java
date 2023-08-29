@@ -12,4 +12,7 @@ public interface UsuarioResource {
 
     @PostMapping("/inscrever")
     public ResponseEntity<String> inscrever(@RequestBody(required = true) Map<String, String> requestMap);
+
+    @PostMapping("/entrar")
+    public ResponseEntity<String> entrar(@RequestBody(required = true) Map<String, String> requestMap);
 }

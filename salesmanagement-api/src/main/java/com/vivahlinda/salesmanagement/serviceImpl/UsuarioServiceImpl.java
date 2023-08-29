@@ -1,5 +1,7 @@
 package com.vivahlinda.salesmanagement.serviceImpl;
 
+import com.vivahlinda.salesmanagement.JWT.CustomerUsersDetailsService;
+import com.vivahlinda.salesmanagement.JWT.JwtUtil;
 import com.vivahlinda.salesmanagement.constants.VivahLindaConstants;
 import com.vivahlinda.salesmanagement.domain.Usuario;
 import com.vivahlinda.salesmanagement.repository.UsuarioRepository;
@@ -9,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,6 +27,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    CustomerUsersDetailsService customerUsersDetailsService;
+
+    @Autowired
+    JwtUtil jwtUtil;
 
     @Override
     public ResponseEntity<String> inscrever(Map<String, String> requestMap) {
@@ -45,6 +59,30 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
+    @Override
+    public ResponseEntity<String> entrar(Map<String, String> requestMap) {
+        log.info("Método entrar");
+        try {
+            Authentication auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("senha"))
+            );
+            if (auth.isAuthenticated()) {
+                if (customerUsersDetailsService.getUsuarioDetail().getIsAtivo().equalsIgnoreCase("true")) {
+                    return new ResponseEntity<String>("{\"token\":\"" +
+                            jwtUtil.generateToken(customerUsersDetailsService.getUsuarioDetail().getEmail(),
+                                    customerUsersDetailsService.getUsuarioDetail().getRole()) + "\"}",
+                            HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<String>("{\"mensagem\":\"" + VivahLindaConstants.CONTATE_O_ADM + "\"}",
+                            HttpStatus.BAD_REQUEST);
+                }
+            }
+        } catch (Exception exception) {
+            log.error("{}", exception);
+        }
+        return new ResponseEntity<String>("{\"mensagem\":\"" + VivahLindaConstants.CREDENCIAL_INVALIDA + "\"}",
+                HttpStatus.BAD_REQUEST);
+    }
 
     private boolean validateIncreverMap(Map<String, String> requestMap) {
         if (requestMap.containsKey("nome") && requestMap.containsKey("numeroContato")
