@@ -1,9 +1,11 @@
 package com.vivahlinda.salesmanagement.serviceImpl;
 
 import com.vivahlinda.salesmanagement.JWT.CustomerUsersDetailsService;
+import com.vivahlinda.salesmanagement.JWT.JwtFilter;
 import com.vivahlinda.salesmanagement.JWT.JwtUtil;
 import com.vivahlinda.salesmanagement.constants.VivahLindaConstants;
 import com.vivahlinda.salesmanagement.domain.Usuario;
+import com.vivahlinda.salesmanagement.domain.dtos.UsuarioDTO;
 import com.vivahlinda.salesmanagement.repository.UsuarioRepository;
 import com.vivahlinda.salesmanagement.service.UsuarioService;
 import com.vivahlinda.salesmanagement.utils.VivahLindaUtils;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -36,6 +40,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     JwtUtil jwtUtil;
+
+    @Autowired
+    JwtFilter jwtFilter;
 
     @Override
     public ResponseEntity<String> inscrever(Map<String, String> requestMap) {
@@ -84,10 +91,39 @@ public class UsuarioServiceImpl implements UsuarioService {
                 HttpStatus.BAD_REQUEST);
     }
 
+    @Override
+    public ResponseEntity<List<UsuarioDTO>> findAllUsuario() {
+        try {
+            if (jwtFilter.isAdmin()) {
+                return new ResponseEntity<>(usuarioRepository.findAllUsuario(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<UsuarioDTO>> findAllAdmin() {
+        try {
+            if (jwtFilter.isAdmin()) {
+                return new ResponseEntity<>(usuarioRepository.findAllAdmin(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     private boolean validateIncreverMap(Map<String, String> requestMap) {
         if (requestMap.containsKey("nome") && requestMap.containsKey("numeroContato")
                 && requestMap.containsKey("email") && requestMap.containsKey("senha")
-                && requestMap.containsKey("endereco") && requestMap.containsKey("dataNascimento")) {
+                && requestMap.containsKey("endereco") && requestMap.containsKey("dataNascimento")
+                && requestMap.containsKey("cpf")) {
             return true;
         } else {
             return false;
@@ -99,6 +135,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuario = new Usuario();
         usuario.setNome(requestMap.get("nome"));
         usuario.setNumeroContato(requestMap.get("numeroContato"));
+        usuario.setCpf(requestMap.get("cpf"));
         usuario.setEndereco(requestMap.get("endereco"));
         usuario.setEmail(requestMap.get("email"));
         usuario.setSenha(requestMap.get("senha"));

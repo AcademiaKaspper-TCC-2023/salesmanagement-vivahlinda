@@ -12,6 +12,10 @@ import java.time.LocalDateTime;
 
 @NamedQuery(name = "Usuario.findByEmailId", query = "select u from Usuario u where u.email=:email")
 
+@NamedQuery(name = "Usuario.findAllUsuario", query = "select new com.vivahlinda.salesmanagement.domain.dtos.UsuarioDTO(u.id, u.nome, u.numeroContato, u.email, u.isAtivo, u.role, u.endereco, u.dataNascimento, u.dataCriacao) from Usuario u where u.role='usuario'")
+
+@NamedQuery(name = "Usuario.findAllAdmin", query = "select new com.vivahlinda.salesmanagement.domain.dtos.UsuarioDTO(u.id, u.nome, u.numeroContato, u.email, u.isAtivo, u.role, u.endereco, u.dataNascimento, u.dataCriacao) from Usuario u where u.role='admin'")
+
 @Data
 @Entity
 @DynamicUpdate
@@ -31,6 +35,9 @@ public class Usuario implements Serializable {
 
     @Column(name = "numeroContato")
     private String numeroContato;
+
+    @Column(name = "cpf")
+    private String cpf;
 
     @Column(name = "email")
     private String email;

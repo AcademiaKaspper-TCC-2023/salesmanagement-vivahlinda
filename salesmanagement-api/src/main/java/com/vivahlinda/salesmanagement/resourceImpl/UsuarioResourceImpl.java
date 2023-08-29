@@ -1,6 +1,7 @@
 package com.vivahlinda.salesmanagement.resourceImpl;
 
 import com.vivahlinda.salesmanagement.constants.VivahLindaConstants;
+import com.vivahlinda.salesmanagement.domain.dtos.UsuarioDTO;
 import com.vivahlinda.salesmanagement.resource.UsuarioResource;
 import com.vivahlinda.salesmanagement.service.UsuarioService;
 import com.vivahlinda.salesmanagement.utils.VivahLindaUtils;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -36,5 +39,25 @@ public class UsuarioResourceImpl implements UsuarioResource {
             exception.printStackTrace();
         }
         return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<UsuarioDTO>> findAllUsuario() {
+        try {
+            return usuarioService.findAllUsuario();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<List<UsuarioDTO>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<UsuarioDTO>> findAllAdmin() {
+        try {
+            return usuarioService.findAllAdmin();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<List<UsuarioDTO>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
