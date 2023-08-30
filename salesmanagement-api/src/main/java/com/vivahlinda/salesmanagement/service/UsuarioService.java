@@ -14,4 +14,6 @@ public interface UsuarioService {
     ResponseEntity<List<UsuarioDTO>> findAllUsuario();
 
     ResponseEntity<List<UsuarioDTO>> findAllAdmin();
+
+    ResponseEntity<List<UsuarioDTO>> buscarTodos();
 }

@@ -15,6 +15,7 @@ public class UsuarioDTO {
     private String isAtivo;
     private String role;
     private String endereco;
+    private String cpf;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
@@ -22,7 +23,7 @@ public class UsuarioDTO {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataCriacao;
 
-    public UsuarioDTO(Integer id, String nome, String numeroContato, String email, String isAtivo, String role, String endereco, LocalDate dataNascimento, LocalDateTime dataCriacao) {
+    public UsuarioDTO(Integer id, String nome, String numeroContato, String email, String isAtivo, String role, String endereco, String cpf, LocalDate dataNascimento, LocalDateTime dataCriacao) {
         this.id = id;
         this.nome = nome;
         this.numeroContato = numeroContato;
@@ -30,6 +31,7 @@ public class UsuarioDTO {
         this.isAtivo = isAtivo;
         this.role = role;
         this.endereco = endereco;
+        this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.dataCriacao = dataCriacao;
     }

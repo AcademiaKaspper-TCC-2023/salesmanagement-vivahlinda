@@ -60,4 +60,14 @@ public class UsuarioResourceImpl implements UsuarioResource {
         }
         return new ResponseEntity<List<UsuarioDTO>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<List<UsuarioDTO>> buscarTodos() {
+        try {
+            return usuarioService.buscarTodos();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<List<UsuarioDTO>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

@@ -119,6 +119,39 @@ public class UsuarioServiceImpl implements UsuarioService {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Override
+    public ResponseEntity<List<UsuarioDTO>> buscarTodos() {
+        try {
+            if (jwtFilter.isAdmin()) {
+                List<Usuario> usuarios = usuarioRepository.findAll();
+                List<UsuarioDTO> usuariosDTO = new ArrayList<>();
+
+                for (Usuario usuario : usuarios) {
+                    UsuarioDTO usuarioDTO = new UsuarioDTO(
+                            usuario.getId(),
+                            usuario.getNome(),
+                            usuario.getCpf(),
+                            usuario.getNumeroContato(),
+                            usuario.getEmail(),
+                            usuario.getIsAtivo(),
+                            usuario.getRole(),
+                            usuario.getEndereco(),
+                            usuario.getDataNascimento(),
+                            usuario.getDataCriacao()
+                    );
+                    usuariosDTO.add(usuarioDTO);
+                }
+
+                return new ResponseEntity<>(usuariosDTO, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     private boolean validateIncreverMap(Map<String, String> requestMap) {
         if (requestMap.containsKey("nome") && requestMap.containsKey("numeroContato")
                 && requestMap.containsKey("email") && requestMap.containsKey("senha")
@@ -129,7 +162,6 @@ public class UsuarioServiceImpl implements UsuarioService {
             return false;
         }
     }
-
 
     private Usuario getUsuarioFromMap(Map<String, String> requestMap) {
         Usuario usuario = new Usuario();

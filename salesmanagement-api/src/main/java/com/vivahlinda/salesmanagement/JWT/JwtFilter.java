@@ -29,7 +29,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        if (httpServletRequest.getServletPath().matches(("/usuario/login|/usuario/forgotPassword|/usuario/signup"))) {
+        if (httpServletRequest.getServletPath().matches(("/usuario/entrar|/usuario/forgotPassword|/usuario/inscrever"))) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         } else {
 

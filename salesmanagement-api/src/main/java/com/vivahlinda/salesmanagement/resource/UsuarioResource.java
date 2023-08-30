@@ -24,4 +24,7 @@ public interface UsuarioResource {
 
     @GetMapping(path = "/findAllAdmin")
     public ResponseEntity<List<UsuarioDTO>> findAllAdmin();
+
+    @GetMapping(path = "/get")
+    public ResponseEntity<List<UsuarioDTO>> buscarTodos();
 }
