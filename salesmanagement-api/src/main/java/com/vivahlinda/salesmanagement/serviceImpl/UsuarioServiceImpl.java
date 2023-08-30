@@ -8,6 +8,7 @@ import com.vivahlinda.salesmanagement.domain.Usuario;
 import com.vivahlinda.salesmanagement.domain.dtos.UsuarioDTO;
 import com.vivahlinda.salesmanagement.repository.UsuarioRepository;
 import com.vivahlinda.salesmanagement.service.UsuarioService;
+import com.vivahlinda.salesmanagement.utils.EmailUtils;
 import com.vivahlinda.salesmanagement.utils.VivahLindaUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -43,6 +41,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     JwtFilter jwtFilter;
+
+    @Autowired
+    EmailUtils emailUtils;
 
     @Override
     public ResponseEntity<String> inscrever(Map<String, String> requestMap) {
@@ -151,6 +152,60 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<String> update(Map<String, String> requestMap) {
+        try {
+            if (jwtFilter.isAdmin()) {
+                Optional<Usuario> optional = usuarioRepository.findById(Integer.parseInt(requestMap.get("id")));
+
+                if (!optional.isEmpty()) {
+                    usuarioRepository.updateStatus(requestMap.get("isAtivo"), Integer.parseInt(requestMap.get("id")));
+
+                    // Envia e-mail para todos os administradores informando sobre a atualização de isAtivo.
+                    sendMailToAllAdmin(requestMap.get("isAtivo"), optional.get().getEmail(), usuarioRepository.getAllAdmin());
+
+                    return VivahLindaUtils.getResponseEntity(VivahLindaConstants.SUCESSO_UPDATE_STATUS, HttpStatus.OK);
+                } else {
+                    return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ID_USUARIO_INEXISTENTE, HttpStatus.OK);
+                }
+
+            } else {
+                return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ACESSO_NEGADO, HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private void sendMailToAllAdmin(String isAtivo, String usuario, List<String> allAdmin) {
+        allAdmin.remove(jwtFilter.getUsuarioAtual());
+        String assunto;
+        String texto;
+
+        if (isAtivo != null && isAtivo.equalsIgnoreCase("true")) {
+            // E-mail de aprovação de usuário
+            assunto = VivahLindaConstants.ASSUNTO_CONTA_APROVADA;
+            texto = "Olá Administrador,\n\n";
+            texto += "Gostaríamos de informar que o usuário " + usuario + " foi aprovado por " + jwtFilter.getUsuarioAtual() + ".\n";
+            texto += "A partir de agora, o usuário tem acesso ao sistema de gerenciamento de vendas da Vivah Linda Store.\n\n";
+        } else {
+            // E-mail de desativação de usuário
+            assunto = VivahLindaConstants.ASSUNTO_CONTA_DESABILITADA;
+            texto = "Prezado Administrador,\n\n";
+            texto += "Informamos que o acesso do usuário " + usuario + " foi desabilitado por " + jwtFilter.getUsuarioAtual() + ".\n";
+            texto += "O usuário não terá mais permissão para acessar o sistema de gerenciamento de vendas da Vivah Linda Store.\n\n";
+        }
+
+        texto += "Você pode verificar os detalhes do usuário e sua atividade na seção de administrador do sistema.\n\n";
+        texto += "Atenciosamente,\n";
+        texto += "Equipe de Administração do Sistema Vivah Linda Store";
+
+        // Envia um e-mail para todos os administradores com as informações construídas acima.
+        emailUtils.sendSimpleMessage(jwtFilter.getUsuarioAtual(), assunto, texto, allAdmin);
+    }
+
 
     private boolean validateIncreverMap(Map<String, String> requestMap) {
         if (requestMap.containsKey("nome") && requestMap.containsKey("numeroContato")

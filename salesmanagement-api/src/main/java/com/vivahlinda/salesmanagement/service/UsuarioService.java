@@ -16,4 +16,6 @@ public interface UsuarioService {
     ResponseEntity<List<UsuarioDTO>> findAllAdmin();
 
     ResponseEntity<List<UsuarioDTO>> buscarTodos();
+
+    ResponseEntity<String> update(Map<String, String> requestMap);
 }

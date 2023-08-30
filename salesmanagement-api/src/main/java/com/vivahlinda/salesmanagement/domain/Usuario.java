@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 
 @NamedQuery(name = "Usuario.findAllAdmin", query = "select new com.vivahlinda.salesmanagement.domain.dtos.UsuarioDTO(u.id, u.nome, u.numeroContato, u.email, u.isAtivo, u.role, u.endereco, u.cpf, u.dataNascimento, u.dataCriacao) from Usuario u where u.role='admin'")
 
+@NamedQuery(name = "Usuario.getAllAdmin", query = "select u.email from Usuario u where u.role='admin'")
+
 @Data
 @Entity
 @DynamicUpdate

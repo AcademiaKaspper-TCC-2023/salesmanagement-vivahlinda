@@ -70,4 +70,15 @@ public class UsuarioResourceImpl implements UsuarioResource {
         }
         return new ResponseEntity<List<UsuarioDTO>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<String> update(Map<String, String> requestMap) {
+        try {
+            return usuarioService.update(requestMap);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
