@@ -14,14 +14,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     Usuario findByEmailId(@Param("email") String email);
 
+    Usuario findByEmail(String email);
+
     @Transactional
     @Modifying
     @Query("UPDATE Usuario u SET u.isAtivo = :isAtivo WHERE u.id = :id")
     Integer updateStatus(@Param("isAtivo") String isAtivo, @Param("id") Integer id);
 
-
     List<String> getAllAdmin();
-
 
     List<UsuarioDTO> findAllUsuario();
     List<UsuarioDTO> findAllAdmin();

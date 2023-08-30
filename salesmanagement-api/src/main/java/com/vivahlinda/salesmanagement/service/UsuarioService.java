@@ -18,4 +18,8 @@ public interface UsuarioService {
     ResponseEntity<List<UsuarioDTO>> buscarTodos();
 
     ResponseEntity<String> update(Map<String, String> requestMap);
+
+    ResponseEntity<String> checkToken();
+
+    ResponseEntity<String> alterarSenha(Map<String, String> requestMap);
 }

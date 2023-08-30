@@ -31,4 +31,11 @@ public interface UsuarioResource {
     @PostMapping(path = "/update")
     public ResponseEntity<String> update(@RequestBody(required = true) Map<String, String> requestMap);
 
+    @GetMapping(path = "/checkToken")
+    ResponseEntity<String> checkToken();
+
+    @PostMapping(path = "/alterarSenha")
+    ResponseEntity<String> alterarSenha(@RequestBody Map<String, String> requestMap);
+
+
 }

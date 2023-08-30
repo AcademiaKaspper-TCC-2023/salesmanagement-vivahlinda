@@ -179,6 +179,30 @@ public class UsuarioServiceImpl implements UsuarioService {
         return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Override
+    public ResponseEntity<String> checkToken() {
+        return VivahLindaUtils.getResponseEntity("true", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> alterarSenha(Map<String, String> requestMap) {
+        try {
+            Usuario usuarioObj = usuarioRepository.findByEmail(jwtFilter.getUsuarioAtual());
+            if (!usuarioObj.equals(null)) {
+                if (usuarioObj.getSenha().equals(requestMap.get("senhaAntiga"))) {
+                    usuarioObj.setSenha(requestMap.get("senhaNova"));
+                    usuarioRepository.save(usuarioObj);
+                    return VivahLindaUtils.getResponseEntity(VivahLindaConstants.SENHA_ATUALIZADA, HttpStatus.OK);
+                }
+                return VivahLindaUtils.getResponseEntity(VivahLindaConstants.SENHA_ANTIGA_INCORRETA, HttpStatus.BAD_REQUEST);
+            }
+            return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception exception) {
+
+        }
+        return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     private void sendMailToAllAdmin(String isAtivo, String usuario, List<String> allAdmin) {
         allAdmin.remove(jwtFilter.getUsuarioAtual());
         String assunto;
