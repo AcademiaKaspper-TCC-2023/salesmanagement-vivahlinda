@@ -101,4 +101,15 @@ public class UsuarioResourceImpl implements UsuarioResource {
         return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Override
+    public ResponseEntity<String> recuperarSenha(Map<String, String> requestMap) {
+        try {
+            return usuarioService.recuperarSenha(requestMap);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
 }

@@ -22,4 +22,6 @@ public interface UsuarioService {
     ResponseEntity<String> checkToken();
 
     ResponseEntity<String> alterarSenha(Map<String, String> requestMap);
+
+    ResponseEntity<String> recuperarSenha(Map<String, String> requestMap);
 }

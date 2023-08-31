@@ -1,5 +1,6 @@
 package com.vivahlinda.salesmanagement.serviceImpl;
 
+import com.google.common.base.Strings;
 import com.vivahlinda.salesmanagement.JWT.CustomerUsersDetailsService;
 import com.vivahlinda.salesmanagement.JWT.JwtFilter;
 import com.vivahlinda.salesmanagement.JWT.JwtUtil;
@@ -199,6 +200,21 @@ public class UsuarioServiceImpl implements UsuarioService {
             return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception exception) {
 
+        }
+        return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> recuperarSenha(Map<String, String> requestMap) {
+        try {
+            Usuario usuario = usuarioRepository.findByEmail(requestMap.get("email"));
+            if (!Objects.isNull(usuario) && !Strings.isNullOrEmpty(usuario.getEmail()))
+                emailUtils.enviarEmailRecuperarSenha(usuario.getEmail(), VivahLindaConstants.CRED_SISTEMA_VIVAHLINDA, usuario.getSenha());
+
+            return VivahLindaUtils.getResponseEntity(VivahLindaConstants.VERIFICAR_EMAIL, HttpStatus.OK);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
         return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
     }

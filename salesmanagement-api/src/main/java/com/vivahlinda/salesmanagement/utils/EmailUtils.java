@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
 
 @Service
@@ -45,5 +48,30 @@ public class EmailUtils {
             cc[i] = ccLista.get(i);
         }
         return cc;
+    }
+
+    public void enviarEmailRecuperarSenha(String para, String assunto, String senha) throws MessagingException {
+        MimeMessage mensagem = javaMailSender.createMimeMessage();
+        MimeMessageHelper dados = new MimeMessageHelper(mensagem, true);
+        dados.setFrom(remetente);
+        dados.setTo(para);
+        dados.setSubject(assunto);
+
+        String corpoEmail = "<html><body>" +
+                "<p>Olá,</p>" +
+                "<p>Recebemos uma solicitação para redefinir sua senha na Vivah Linda Store. Aqui estão os detalhes:</p>" +
+                "<ul>" +
+                "<li><strong>Email:</strong> " + para + "</li>" +
+                "<li><strong>Senha:</strong> " + senha + "</li>" +
+                "</ul>" +
+                "<p>Recomendamos que você faça login usando sua nova senha e, em seguida, atualize-a para uma senha segura de sua escolha. Clique no link abaixo para acessar a loja:</p>" +
+                "<p><a href=\"http://www.vivahlinda.com/\">Acessar Vivah Linda Store</a></p>" +
+                "<p>Se você não solicitou essa redefinição de senha ou tem alguma dúvida, por favor, entre em contato com nossa equipe de suporte.</p>" +
+                "<p>Obrigado,</p>" +
+                "<p>Equipe Vivah Linda Store</p>" +
+                "</body></html>";
+
+        dados.setText(corpoEmail, true); // Define o conteúdo como HTML
+        javaMailSender.send(mensagem);
     }
 }
