@@ -17,5 +17,16 @@ public class VivahLindaConstants {
     public static final String SENHA_ATUALIZADA = "A senha foi atualizada com sucesso!";
     public static final String VERIFICAR_EMAIL = "Verifique suas credenciais no seu email";
     public static final String CRED_SISTEMA_VIVAHLINDA = "Credenciais do Sistema Vivah Linda Store";
+    public static final String CATEGORIA_ADD = "Categoria Adicionada com sucesso!";
+    public static final String CATEGORIA_NAO_EXISTE = "Essa categoria não existe";
+    public static final String CATEGORIA_UPDATE_SUCESSO = "Categoria atualizada com sucesso!";
+    public static final String PRODUTO_ADD_SUCESSO = "Produto criado com sucesso!";
+    public static final String ID_PROD_NAO_EXISTE = "Produto a ser atualizado não foi encontrado no banco de dados!";
+    public static final String PRODUTO_UPDATE_SUCESSO = "Produto atualizado com sucesso!";
+    public static final String PRODUTO_EXCLUIDO = "Produto excluido com sucesso!";
+    public static final String ID_PROD_NAO_EXISTE_DEL = "Produto a ser deletado não foi encontrado no banco de dados!";
+    public static final String ID_PROD_NAO_EXISTE_STATUS = "O Produto com esse id não existe!";
+    public static final String STATUS_UPDATE_SUCESSO = "Status do produto atualizado com sucesso!";
+    public static final String DADOS_NAO_ENCONTRADO = "Dados requeridos não preenchidos";
 
 }
