@@ -81,7 +81,6 @@ public class VivahLindaUtils {
     }
 
     public static BigDecimal converteValorBigdecimal(String precoString) {
-        // Remover os pontos de milhares e substituir a vírgula por um ponto como separador decimal
         precoString = precoString.replace(".", "").replace(",", ".");
         return new BigDecimal(precoString);
     }
