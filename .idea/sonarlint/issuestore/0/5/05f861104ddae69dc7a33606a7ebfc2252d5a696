@@ -1,0 +1,31 @@
+
+b	java:S112³"FDefine and throw a dedicated exception instead of using a generic one.(¹ßŠ58ôæüÛ¥1
+R
+java:S3740¥"/Provide the parametrized type for this generic.(ô¶›Ëşÿÿÿÿ8ôæüÛ¥1
+l
+java:S1192?"ODefine a constant instead of duplicating this literal "formaPagamento" 3 times.(’ì…8â·ßİ¥1
+s
+java:S1192>"QDefine a constant instead of duplicating this literal "noContatoCliente" 3 times.(˜ùÈùÿÿÿÿ8â·ßİ¥1
+h
+java:S1192P"FDefine a constant instead of duplicating this literal "Dados" 3 times.(²’°ôşÿÿÿÿ8â·ßİ¥1
+o
+java:S1192="MDefine a constant instead of duplicating this literal "emailCliente" 3 times.(í×†şÿÿÿÿ8ã·ßİ¥1
+m
+java:S11922"KDefine a constant instead of duplicating this literal "isGenerate" 3 times.(úÆÿ“ùÿÿÿÿ8¸À×İ¥1
+u
+java:S1192["XDefine a constant instead of duplicating this literal "detalheProdutosVendidos" 3 times.(çòöÁ8ã·ßİ¥1
+i
+java:S1192h"LDefine a constant instead of duplicating this literal "totalCompra" 3 times.(™¹¬¦8ã·ßİ¥1
+h
+java:S1192<"KDefine a constant instead of duplicating this literal "cpfCliente" 3 times.(ğõü8ã·ßİ¥1
+i
+java:S1192:"LDefine a constant instead of duplicating this literal "nomeCliente" 3 times.(ïòî8ã·ßİ¥1
+J
+java:S54112"(Use a primitive boolean expression here.(úÆÿ“ùÿÿÿÿ8¹À×İ¥1
+K
+java:S5411"(Use a primitive boolean expression here.(çÊÌ¤øÿÿÿÿ8öæüÛ¥1
+u	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(èçİ8÷æüÛ¥1
+T
+java:S1135i"2Complete the task associated to this TODO comment.(äÌ‡æûÿÿÿÿ8‘çüÛ¥1
+V
+java:S1854z"9Remove this useless assignment to local variable "lista".(ĞØ£Ô8’çüÛ¥1

@@ -1,0 +1,8 @@
+
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(°ç­²ÿÿÿÿÿ8Æöğˆ¤1
+a
+java:S1874"DRemove this use of "WebSecurityConfigurerAdapter"; it is deprecated.(Ë¶Ï“8æöğˆ¤1
+Z
+java:S5344">Don't use the default "PasswordEncoder" relying on plain-text.(ßÑ¯f8çöğˆ¤1
+X
+java:S1874#";Remove this use of "NoOpPasswordEncoder"; it is deprecated.(å‰ö8éöğˆ¤1

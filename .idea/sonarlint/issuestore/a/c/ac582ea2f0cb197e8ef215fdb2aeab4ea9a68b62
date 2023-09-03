@@ -1,0 +1,9 @@
+
+?
+java:S2629)"$Invoke method(s) only conditionally.(›ˆÂÀýÿÿÿÿ
+^
+java:S2259)"CA "NullPointerException" could be thrown; "lista" is nullable here.(›ˆÂÀýÿÿÿÿ
+T
+java:S1155%">Use isEmpty() to check whether the collection is empty or not.(‹÷†í
+|
+java:S3457)"aNo need to call "toString()" method as formatting and string conversion is done by the Formatter.(›ˆÂÀýÿÿÿÿ
