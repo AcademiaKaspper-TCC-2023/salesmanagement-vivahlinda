@@ -23,7 +23,7 @@ public class CustomerUsersDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("Dentro de loadUserByUsername{} ", username);
+        log.info("Dentro de loadUserByUsername {} ", username);
         usuarioDetail = usuarioRepository.findByEmailId(username);
         if (!Objects.isNull(usuarioDetail))
             return new User(usuarioDetail.getEmail(), usuarioDetail.getSenha(), new ArrayList<>());
