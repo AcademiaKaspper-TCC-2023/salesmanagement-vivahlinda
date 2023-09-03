@@ -167,8 +167,10 @@ public class ProdutoServiceImpl implements ProdutoService {
         produto.setCategoria(categoria);
         produto.setNome(requestMap.get("nome"));
         produto.setDescricao(requestMap.get("descricao"));
-        produto.setPreco(new BigDecimal(requestMap.get("preco")));
+
+        BigDecimal preco = VivahLindaUtils.converteValorBigdecimal(requestMap.get("preco"));
+        produto.setPreco(preco);
+
         return produto;
     }
-
 }

@@ -39,23 +39,25 @@ public class JwtFilter extends OncePerRequestFilter {
             if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                 token = authorizationHeader.substring(7);
                 nomeUsuario = jwtUtil.extrairNomeUsuario(token);
-                claims = jwtUtil.extractAllClaims(token);
-            }
 
-            if (nomeUsuario != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = service.loadUserByUsername(nomeUsuario);
-                if (jwtUtil.validateToken(token, userDetails)) {
-                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                    usernamePasswordAuthenticationToken.setDetails(
-                            new WebAuthenticationDetailsSource().buildDetails(httpServletRequest)
-                    );
-                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                if (nomeUsuario != null) {
+                    claims = jwtUtil.extractAllClaims(token);
+                    UserDetails userDetails = service.loadUserByUsername(nomeUsuario);
+
+                    if (jwtUtil.validateToken(token, userDetails)) {
+                        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        usernamePasswordAuthenticationToken.setDetails(
+                                new WebAuthenticationDetailsSource().buildDetails(httpServletRequest)
+                        );
+                        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                    }
                 }
             }
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         }
     }
+
 
     // Método que verifica se o usuário autenticado é um administrador.
     public boolean isAdmin() {

@@ -28,5 +28,9 @@ public class VivahLindaConstants {
     public static final String ID_PROD_NAO_EXISTE_STATUS = "O Produto com esse id não existe!";
     public static final String STATUS_UPDATE_SUCESSO = "Status do produto atualizado com sucesso!";
     public static final String DADOS_NAO_ENCONTRADO = "Dados requeridos não preenchidos";
-
+    public static final String LOCAL_ARQUIVOS_NFE = "D:\\tcc-kaspper-2023\\NFe";
+    public static final String TITULO = "Vivah Linda Store";
+    public static final String DELETADO_SUCESSO = "Os dados da venda foram deletados com sucesso!";
+    public static final String VENDA_NOTFOUND = "Dados da venda não encontrada no banco de dados!";
+    public static final String NENHUM_RESULTADO = "Sua pesquisa não retornou nenhum resultado. Tente novamente com outras informações.";
 }

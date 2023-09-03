@@ -208,6 +208,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     public ResponseEntity<String> recuperarSenha(Map<String, String> requestMap) {
         try {
             Usuario usuario = usuarioRepository.findByEmail(requestMap.get("email"));
+
+            if (usuario == null) {
+                return VivahLindaUtils.getResponseEntity(VivahLindaConstants.NENHUM_RESULTADO, HttpStatus.NOT_FOUND);
+            }
+
             if (!Objects.isNull(usuario) && !Strings.isNullOrEmpty(usuario.getEmail()))
                 emailUtils.enviarEmailRecuperarSenha(usuario.getEmail(), VivahLindaConstants.CRED_SISTEMA_VIVAHLINDA, usuario.getSenha());
 
