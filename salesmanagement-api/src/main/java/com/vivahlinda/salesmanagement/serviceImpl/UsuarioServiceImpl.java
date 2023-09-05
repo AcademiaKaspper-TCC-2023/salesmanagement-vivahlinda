@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -223,6 +224,27 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public UsuarioDTO getPerfilUsuario(UserDetails userDetails) {
+        try {
+            Usuario newUser = usuarioRepository.findByEmail(userDetails.getUsername());
+
+            String nome = newUser.getNome() + " - " + newUser.getCpf();
+            String email = newUser.getEmail();
+            String role = newUser.getRole();
+
+            return new UsuarioDTO(
+                    nome,
+                    email,
+                    role
+            );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new RuntimeException(VivahLindaConstants.ERRO_AO_OBTER_PERFIL, ex);
+        }
+    }
+
 
     private void sendMailToAllAdmin(String isAtivo, String usuario, List<String> allAdmin) {
         allAdmin.remove(jwtFilter.getUsuarioAtual());

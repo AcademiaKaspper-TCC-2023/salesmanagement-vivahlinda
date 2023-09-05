@@ -2,6 +2,7 @@ package com.vivahlinda.salesmanagement.service;
 
 import com.vivahlinda.salesmanagement.domain.dtos.UsuarioDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 import java.util.Map;
@@ -24,4 +25,6 @@ public interface UsuarioService {
     ResponseEntity<String> alterarSenha(Map<String, String> requestMap);
 
     ResponseEntity<String> recuperarSenha(Map<String, String> requestMap);
+
+    UsuarioDTO getPerfilUsuario(UserDetails userDetails);
 }

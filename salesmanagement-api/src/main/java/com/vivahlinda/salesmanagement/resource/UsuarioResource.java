@@ -2,6 +2,8 @@ package com.vivahlinda.salesmanagement.resource;
 
 import com.vivahlinda.salesmanagement.domain.dtos.UsuarioDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +14,9 @@ import java.util.Map;
 
 @RequestMapping("/usuario")
 public interface UsuarioResource {
+
+    @GetMapping("/perfil")
+    public ResponseEntity<UsuarioDTO> getPerfilUsuario(@AuthenticationPrincipal UserDetails userDetails);
 
     @PostMapping("/inscrever")
     public ResponseEntity<String> inscrever(@RequestBody(required = true) Map<String, String> requestMap);

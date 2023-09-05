@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -20,6 +22,16 @@ import java.util.Map;
 public class UsuarioResourceImpl implements UsuarioResource {
     @Autowired
     UsuarioService usuarioService;
+
+    public ResponseEntity<UsuarioDTO> getPerfilUsuario(@AuthenticationPrincipal UserDetails userDetails) {
+        try {
+            UsuarioDTO usuarioDTO = usuarioService.getPerfilUsuario(userDetails);
+            return ResponseEntity.ok(usuarioDTO);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     @Override
     public ResponseEntity<String> inscrever(Map<String, String> requestMap) {

@@ -33,4 +33,5 @@ public class VivahLindaConstants {
     public static final String DELETADO_SUCESSO = "Os dados da venda foram deletados com sucesso!";
     public static final String VENDA_NOTFOUND = "Dados da venda não encontrada no banco de dados!";
     public static final String NENHUM_RESULTADO = "Sua pesquisa não retornou nenhum resultado. Tente novamente com outras informações.";
+    public static final String ERRO_AO_OBTER_PERFIL = "Ocorreu um erro ao obter o perfil do usuário.";
 }

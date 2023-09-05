@@ -35,4 +35,10 @@ public class UsuarioDTO {
         this.dataNascimento = dataNascimento;
         this.dataCriacao = dataCriacao;
     }
+
+    public UsuarioDTO(String nome, String email, String role) {
+        this.nome = nome;
+        this.email = email;
+        this.role = role;
+    }
 }
