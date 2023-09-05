@@ -1,0 +1,49 @@
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <mat-nav-list class="nav-list custom-pink-text">
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">dashboard</i>
+        Dashboard
+      </a>
+
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">category</i>
+        Gerenciar Categorias
+      </a>
+
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">inventory_2</i>
+        Gerenciar Produtos
+      </a>
+
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">shopping_cart</i>
+        Gerenciar Vendas
+      </a>
+
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">backup_table</i>
+        Historico de Vendas
+      </a>
+
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">people</i>
+        Usuários
+      </a>
+
+      <div class="sidenav-footer">
+
+        <p><span style="color: #D80063;"><i class="material-icons">people</i></span> {{ usuarioLogado.nome }}</p>
+        <p><span style="color: #D80063;"><i class="material-icons">email</i></span> {{ usuarioLogado.email }}</p>
+        <p><span style="color: #D80063;"><i class="material-icons">manage_accounts</i></span> {{ usuarioLogado.role }}</p>
+      </div>
+
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+  </div>
+</mat-drawer-container>

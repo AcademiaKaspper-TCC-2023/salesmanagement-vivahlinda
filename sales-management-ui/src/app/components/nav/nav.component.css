@@ -1,0 +1,29 @@
+.container {
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidenav {
+  padding: 20px;
+}
+
+.custom-pink-text a, .custom-pink-text i {
+  color: #D80063;
+}
+
+.sidenav-footer {
+  position: absolute;
+  bottom: 0;
+  /* width: 100%; */
+  padding: 16px;
+  box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.2);
+  font-size: 12px;
+}
+
