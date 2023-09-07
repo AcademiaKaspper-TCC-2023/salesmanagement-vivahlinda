@@ -1,1 +1,30 @@
-<p>alterar-senha works!</p>
+<div class="container mat-elevation-z8">
+  <form class="form">
+    <h1 class="fullWidth">Alterar Senha:</h1>
+
+    <section class="section">
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Digite sua senha atual:</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" required maxlength="15" [formControl]="senhaAntiga" />
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Digite sua nova senha:</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" required maxlength="15" [formControl]="senhaNova" />
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div class="button-container">
+        <button [disabled]="!validaCampos()" mat-flat-button color="primary" class="button-margin mat-elevation-z4" (click)="onSubmit()">Atualizar</button>
+        <button routerLink="/dashboard" mat-flat-button color="accent" class="button-margin mat-elevation-z4">Cancelar</button>
+      </div>
+    </section>
+  </form>
+</div>
