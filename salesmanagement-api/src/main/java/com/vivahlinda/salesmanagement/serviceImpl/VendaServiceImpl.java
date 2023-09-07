@@ -39,7 +39,6 @@ public class VendaServiceImpl implements VendaService {
     @Autowired
     JwtFilter jwtFilter;
 
-
     @Override
     public ResponseEntity<String> gerarRelatorio(Map<String, Object> requestMap) {
         log.info("gerarRelatorio: Iniciado geração de relatorio, {}", requestMap);
