@@ -2,6 +2,7 @@ package com.vivahlinda.salesmanagement.resourceImpl;
 
 import com.vivahlinda.salesmanagement.constants.VivahLindaConstants;
 import com.vivahlinda.salesmanagement.domain.Venda;
+import com.vivahlinda.salesmanagement.domain.dtos.VendaMensalDTO;
 import com.vivahlinda.salesmanagement.resource.VendaResource;
 import com.vivahlinda.salesmanagement.service.VendaService;
 import com.vivahlinda.salesmanagement.utils.VivahLindaUtils;
@@ -57,5 +58,11 @@ public class VendaResourceImpl implements VendaResource {
             exception.printStackTrace();
         }
         return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<VendaMensalDTO>> getVendasMensais() {
+        List<VendaMensalDTO> vendasMensais = vendaService.getVendasMensais();
+        return ResponseEntity.ok(vendasMensais);
     }
 }

@@ -7,6 +7,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.vivahlinda.salesmanagement.JWT.JwtFilter;
 import com.vivahlinda.salesmanagement.constants.VivahLindaConstants;
 import com.vivahlinda.salesmanagement.domain.Venda;
+import com.vivahlinda.salesmanagement.domain.dtos.VendaMensalDTO;
 import com.vivahlinda.salesmanagement.repository.VendaRepository;
 import com.vivahlinda.salesmanagement.service.VendaService;
 import com.vivahlinda.salesmanagement.utils.VivahLindaUtils;
@@ -25,6 +26,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Stream;
@@ -172,6 +174,24 @@ public class VendaServiceImpl implements VendaService {
             exception.printStackTrace();
         }
         return VivahLindaUtils.getResponseEntity(VivahLindaConstants.ALGO_DEU_ERRADO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public List<VendaMensalDTO> getVendasMensais() {
+        List<Object[]> vendasMensais = vendaRepository.getVendasMensais();
+
+        List<VendaMensalDTO> vendaMensalDTOs = new ArrayList<>();
+
+        for (Object[] vendaMensal : vendasMensais) {
+            int mesNumero = (int) vendaMensal[0];
+            Month mes = VivahLindaUtils.convertToMonth(mesNumero); // Converte o número do mês para Month
+
+            BigDecimal totalVendas = (BigDecimal) vendaMensal[1];
+
+            vendaMensalDTOs.add(new VendaMensalDTO(mes, totalVendas));
+        }
+
+        return vendaMensalDTOs;
     }
 
     // Método privado para obter os bytes do arquivo PDF

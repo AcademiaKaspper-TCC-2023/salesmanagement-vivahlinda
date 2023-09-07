@@ -1,6 +1,7 @@
 package com.vivahlinda.salesmanagement.resource;
 
 import com.vivahlinda.salesmanagement.domain.Venda;
+import com.vivahlinda.salesmanagement.domain.dtos.VendaMensalDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,4 +22,7 @@ public interface VendaResource {
 
     @PostMapping(path = "/delete/{id}")
     ResponseEntity<String> deleteVenda(@PathVariable Integer id);
+
+    @GetMapping(path = "/vendasMensais")
+    ResponseEntity<List<VendaMensalDTO>> getVendasMensais();
 }

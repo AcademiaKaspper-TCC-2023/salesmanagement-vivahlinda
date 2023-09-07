@@ -13,6 +13,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
@@ -83,6 +84,16 @@ public class VivahLindaUtils {
     public static BigDecimal converteValorBigdecimal(String precoString) {
         precoString = precoString.replace(".", "").replace(",", ".");
         return new BigDecimal(precoString);
+    }
+
+    public static Month convertToMonth(int monthNumber) {
+        // Verifica se o número do mês está dentro do intervalo válido (1 a 12)
+        if (monthNumber >= 1 && monthNumber <= 12) {
+            return Month.of(monthNumber);
+        } else {
+            // Lide com valores fora do intervalo (opcionalmente, você pode lançar uma exceção)
+            return null; // ou lançar uma exceção
+        }
     }
 
 }

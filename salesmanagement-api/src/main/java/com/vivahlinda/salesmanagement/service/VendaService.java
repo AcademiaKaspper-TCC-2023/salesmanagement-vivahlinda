@@ -1,6 +1,7 @@
 package com.vivahlinda.salesmanagement.service;
 
 import com.vivahlinda.salesmanagement.domain.Venda;
+import com.vivahlinda.salesmanagement.domain.dtos.VendaMensalDTO;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface VendaService {
     ResponseEntity<byte[]> getPdf(Map<String, Object> requestMap);
 
     ResponseEntity<String> deleteVenda(Integer id);
+
+    List<VendaMensalDTO> getVendasMensais();
 }
