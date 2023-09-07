@@ -133,12 +133,12 @@ public class UsuarioServiceImpl implements UsuarioService {
                     UsuarioDTO usuarioDTO = new UsuarioDTO(
                             usuario.getId(),
                             usuario.getNome(),
-                            usuario.getCpf(),
                             usuario.getNumeroContato(),
                             usuario.getEmail(),
                             usuario.getIsAtivo(),
                             usuario.getRole(),
                             usuario.getEndereco(),
+                            usuario.getCpf(),
                             usuario.getDataNascimento(),
                             usuario.getDataCriacao()
                     );
