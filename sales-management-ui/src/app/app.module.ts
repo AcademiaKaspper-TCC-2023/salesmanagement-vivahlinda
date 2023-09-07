@@ -22,13 +22,15 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BarChartComponent } from './components/dashboard/shared/bar-chart/bar-chart.component';
 import { NavComponent } from './components/nav/nav.component';
+import { AlterarSenhaComponent } from './components/usuario/alterar-senha/alterar-senha.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     DashboardComponent,
-    BarChartComponent
+    BarChartComponent,
+    AlterarSenhaComponent
   ],
   imports: [
     BrowserModule,
