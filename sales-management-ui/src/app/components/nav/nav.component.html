@@ -2,7 +2,7 @@
   <mat-drawer #drawer class="sidenav" mode="side">
     <mat-nav-list class="nav-list custom-pink-text">
       <img src="../../../assets/img/side-image.svg" alt="Imagem de navegação">
-      <a mat-list-item routerLink="/">
+      <a mat-list-item routerLink="/dashboard">
         <i class="material-icons">dashboard</i>
         Dashboard
       </a>
@@ -51,5 +51,6 @@
     <button class="menu mat-elevation-z8" (click)="drawer.toggle()" mat-icon-button>
       <mat-icon>menu_open</mat-icon>
     </button>
+    <router-outlet></router-outlet>
   </div>
 </mat-drawer-container>
