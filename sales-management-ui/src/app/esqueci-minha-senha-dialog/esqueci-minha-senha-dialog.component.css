@@ -1,0 +1,14 @@
+.custom-dialog {
+  min-width: 400px; /* Defina a largura mínima desejada */
+  min-height: 300px; /* Defina a altura mínima desejada */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-dialog .mat-dialog-content {
+  overflow: hidden;
+}
+
+

@@ -1,0 +1,139 @@
+<div class="login-container">
+  <div class="left-column">
+    <!-- Conteúdo à esquerda -->
+    <img src="../../../assets/img/side-image.svg" alt="Imagem de fundo" class="background-image" />
+  </div>
+  <div class="right-column">
+    <!-- Conteúdo à direita -->
+    <ng-container *ngIf="!cadastroMode; else cadastroForm">
+      <!-- Formulário de Login -->
+      <mat-card class="custom-card">
+        <mat-card-header>
+          <mat-card-title style="font-size: 24px; color: #d80063">Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="loginForm">
+
+            <mat-form-field class="fullWidth">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" type="email" formControlName="email" required />
+              <mat-error *ngIf="exibirErro('email', loginForm)">
+                {{ getErrorMessage('email', loginForm, fieldLabels) }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="fullWidth">
+              <mat-label>Senha</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="senha">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="exibirErro('senha', loginForm)">
+                {{ getErrorMessage('senha', loginForm, fieldLabels) }}
+              </mat-error>
+            </mat-form-field>
+
+            <!-- <button type="submit" mat-raised-button color="primary" class="fullWidth">
+              Entrar
+            </button> -->
+            <button type="submit" mat-raised-button color="primary" class="fullWidth"
+            (click)="login()">
+            Entrar
+          </button>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button class="fullWidth" mat-button color="accent" (click)="toggleCadastroMode()">
+            Cadastrar Novo Usuário
+          </button>
+          <button class="fullWidth" mat-button color="primary" (click)="esqueciMinhaSenha()">
+            Esqueceu sua senha?
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+
+    <!-- Formulário de Cadastro (usando *ngIf) -->
+    <ng-template #cadastroForm>
+      <mat-card class="custom-card">
+        <mat-card-header>
+          <mat-card-title style="font-size: 24px; color: #d80063">Cadastro</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="inscreverForm">
+            <mat-form-field class="fullWidth">
+              <mat-label>Nome</mat-label>
+              <input matInput placeholder="Nome" type="text" formControlName="nome" required />
+              <mat-error *ngIf="exibirErro('nome', inscreverForm)">
+                {{ getErrorMessage('nome', inscreverForm, fieldLabels) }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="fullWidth">
+              <mat-label>CPF</mat-label>
+              <input matInput placeholder="CPF" type="text" formControlName="cpf" required />
+              <mat-error *ngIf="exibirErro('cpf', inscreverForm)">
+                {{ getErrorMessage('cpf', inscreverForm, fieldLabels) }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="fullWidth">
+              <mat-label>Número de Contato</mat-label>
+              <input matInput placeholder="Número de Contato" type="text" formControlName="numeroContato" required />
+              <mat-error *ngIf="exibirErro('numeroContato', inscreverForm)">
+                {{ getErrorMessage('numeroContato', inscreverForm, fieldLabels) }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="fullWidth">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" type="email" formControlName="email" required />
+              <mat-error *ngIf="exibirErro('email', inscreverForm)">
+                {{ getErrorMessage('email', inscreverForm, fieldLabels) }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="fullWidth">
+              <mat-label>Senha</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="senha">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="exibirErro('senha', inscreverForm)">
+                {{ getErrorMessage('senha', inscreverForm, fieldLabels) }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="fullWidth">
+              <mat-label>Endereço</mat-label>
+              <textarea matInput placeholder="Endereço" formControlName="endereco" required></textarea>
+              <mat-error *ngIf="exibirErro('endereco', inscreverForm)">
+                {{ getErrorMessage('endereco', inscreverForm, fieldLabels) }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="fullWidth">
+              <mat-label>Data de Nascimento</mat-label>
+              <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento"
+                formControlName="dataNascimento" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <button type="submit" mat-raised-button color="primary" class="fullWidth custom-button"
+              (click)="cadastrarNovoUsuario()">
+              Cadastrar
+            </button>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button class="fullWidth" mat-button color="accent" (click)="toggleCadastroMode()">
+            Voltar para o Login
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-template>
+  </div>
+</div>

@@ -65,7 +65,7 @@ public class EmailUtils {
                 "<li><strong>Senha:</strong> " + senha + "</li>" +
                 "</ul>" +
                 "<p>Recomendamos que você faça login usando sua nova senha e, em seguida, atualize-a para uma senha segura de sua escolha. Clique no link abaixo para acessar a loja:</p>" +
-                "<p><a href=\"http://www.vivahlinda.com/\">Acessar Vivah Linda Store</a></p>" +
+                "<p><a href=\"http://localhost:4200/entrar\">Acessar Vivah Linda Store</a></p>" +
                 "<p>Se você não solicitou essa redefinição de senha ou tem alguma dúvida, por favor, entre em contato com nossa equipe de suporte.</p>" +
                 "<p>Obrigado,</p>" +
                 "<p>Equipe Vivah Linda Store</p>" +

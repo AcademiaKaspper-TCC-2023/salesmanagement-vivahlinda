@@ -12,7 +12,19 @@ export class UsuarioService {
 
   constructor(private httpClient: HttpClient) { }
 
+  signup(dados: any) {
+    return this.httpClient.post(this.url + "/usuario/inscrever", dados, { headers: new HttpHeaders().set('Content-Type', 'application/json') })
+  }
+
   alterarSenha(dados: any): Observable<any> {
     return this.httpClient.post(this.url + "/usuario/alterarSenha", dados, { headers: new HttpHeaders().set('Content-Type', 'application/json') });
+  }
+
+  login(dados: any) {
+    return this.httpClient.post(this.url + "/usuario/entrar", dados, { headers: new HttpHeaders().set('Content-Type', 'application/json') })
+  }
+
+  esqueciMinhaSenha(dados: any) {
+    return this.httpClient.post(this.url + "/usuario/recuperarSenha", dados, { headers: new HttpHeaders().set('Content-Type', 'application/json') })
   }
 }

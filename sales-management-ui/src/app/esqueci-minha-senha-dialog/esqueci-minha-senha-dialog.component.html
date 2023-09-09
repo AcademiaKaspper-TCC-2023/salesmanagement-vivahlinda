@@ -1,0 +1,43 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row fxLayout="row">
+    <span>Esqueceu sua senha?</span>
+    <span class="spacer"></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="esqueciMinhaSenhaForm">
+    <div fxFlex fxLayout="column">
+      <mat-form-field class="fullWidth" fxFlex>
+        <mat-label>Digite seu e-mail de usuario aqui</mat-label>
+        <input matInput formControlName="email" required />
+        <mat-error *ngIf="exibirErro('email', esqueciMinhaSenhaForm)">
+          {{ getErrorMessage('email', esqueciMinhaSenhaForm, fieldLabels) }}
+        </mat-error>
+
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-content align="end">
+  <button
+    class="fullWidth mat-elevation-z8"
+    mat-raised-button
+    mat-button
+    color="primary"
+    (click)="enviarEmail()"
+    style="margin-bottom: 8px;"
+  >
+    <mat-icon>send</mat-icon>Enviar
+  </button>
+  <button
+    class="fullWidth mat-elevation-z8"
+    mat-raised-button
+    color="warn"
+    mat-dialog-close
+  >
+    <mat-icon>cancel</mat-icon>Cancelar
+  </button>
+</mat-dialog-content>
+

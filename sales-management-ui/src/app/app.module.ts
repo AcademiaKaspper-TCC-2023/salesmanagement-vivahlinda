@@ -23,6 +23,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BarChartComponent } from './components/dashboard/shared/bar-chart/bar-chart.component';
 import { NavComponent } from './components/nav/nav.component';
 import { AlterarSenhaComponent } from './components/usuario/alterar-senha/alterar-senha.component';
+import { LoginComponent } from './components/login/login.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { EsqueciMinhaSenhaDialogComponent } from './esqueci-minha-senha-dialog/esqueci-minha-senha-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
+
+
 
 @NgModule({
   declarations: [
@@ -30,7 +38,9 @@ import { AlterarSenhaComponent } from './components/usuario/alterar-senha/altera
     NavComponent,
     DashboardComponent,
     BarChartComponent,
-    AlterarSenhaComponent
+    AlterarSenhaComponent,
+    LoginComponent,
+    EsqueciMinhaSenhaDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -58,8 +68,11 @@ import { AlterarSenhaComponent } from './components/usuario/alterar-senha/altera
     ReactiveFormsModule,
     HttpClientModule,
     MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
