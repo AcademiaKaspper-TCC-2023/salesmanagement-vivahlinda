@@ -21,26 +21,31 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {
+  CreateCategoriaDialogComponent,
+} from './components/categoria/create-categoria-dialog/create-categoria-dialog.component';
+import { EditCategoriaDialogComponent } from './components/categoria/edit-categoria-dialog/edit-categoria-dialog.component';
 import { ListagemCategoriaComponent } from './components/categoria/listagem-categoria/listagem-categoria.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BarChartComponent } from './components/dashboard/shared/bar-chart/bar-chart.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavComponent } from './components/nav/nav.component';
+import { CreateProdutoDialogComponent } from './components/produto/create-produto-dialog/create-produto-dialog.component';
+import { DeleteProdutoDialogComponent } from './components/produto/delete-produto-dialog/delete-produto-dialog.component';
+import { EditProdutoDialogComponent } from './components/produto/edit-produto-dialog/edit-produto-dialog.component';
+import { ListagemProdutoComponent } from './components/produto/listagem-produto/listagem-produto.component';
 import { AlterarSenhaComponent } from './components/usuario/alterar-senha/alterar-senha.component';
+import { CreateVendaDialogComponent } from './components/venda/create-venda-dialog/create-venda-dialog.component';
+import { DeleteVendaDialogComponent } from './components/venda/delete-venda-dialog/delete-venda-dialog.component';
+import { VendaListagemComponent } from './components/venda/venda-listagem/venda-listagem.component';
 import { EsqueciMinhaSenhaDialogComponent } from './esqueci-minha-senha-dialog/esqueci-minha-senha-dialog.component';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
-import { EditCategoriaDialogComponent } from './components/categoria/edit-categoria-dialog/edit-categoria-dialog.component';
-import { CreateCategoriaDialogComponent } from './components/categoria/create-categoria-dialog/create-categoria-dialog.component';
-import { ListagemProdutoComponent } from './components/produto/listagem-produto/listagem-produto.component';
-import { EditProdutoDialogComponent } from './components/produto/edit-produto-dialog/edit-produto-dialog.component';
-import { DeleteProdutoDialogComponent } from './components/produto/delete-produto-dialog/delete-produto-dialog.component';
-import { CreateProdutoDialogComponent } from './components/produto/create-produto-dialog/create-produto-dialog.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -58,7 +63,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ListagemProdutoComponent,
     EditProdutoDialogComponent,
     DeleteProdutoDialogComponent,
-    CreateProdutoDialogComponent
+    CreateProdutoDialogComponent,
+    VendaListagemComponent,
+    CreateVendaDialogComponent,
+    DeleteVendaDialogComponent
   ],
   imports: [
     BrowserModule,

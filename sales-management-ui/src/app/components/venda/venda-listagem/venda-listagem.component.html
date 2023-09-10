@@ -1,0 +1,72 @@
+<div class="container">
+
+  <mat-spinner *ngIf="isLoading" style="margin: 0 auto;"></mat-spinner>
+
+  <button class="fullWidth mat-elevation-z8" style="margin-bottom: 10px;" mat-raised-button color="primary"
+    (click)="openCreateDialog()">Adicionar Nova Venda</button>
+
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Baton" #input>
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="nomeCliente">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+        <td mat-cell *matCellDef="let row" [matTooltip]="row.nomeCliente.length > 30 ? row.nomeCliente : ''">
+          {{ row.nomeCliente | slice:0:30 }}{{ row.nomeCliente.length > 30 ? '...' : '' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="noContatoCliente">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contato Cliente </th>
+        <td mat-cell *matCellDef="let row"> {{row.noContatoCliente}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="formaPagamento">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Forma de Pgmt </th>
+        <td mat-cell *matCellDef="let row"> {{row.formaPagamento}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="loginVendedor">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendedor </th>
+        <td mat-cell *matCellDef="let row"> {{row.loginVendedor}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataVenda">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Data da Venda </th>
+        <td mat-cell *matCellDef="let row"> {{row.dataVenda}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalCompra">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total da Compra </th>
+        <td mat-cell *matCellDef="let row"> {{row.totalCompra | currency:'BRL':'symbol':'1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef> Ações </th>
+        <td mat-cell *matCellDef="let row">
+
+          <button mat-icon-button (click)="openViewDialog(row)">
+            <mat-icon>view</mat-icon>
+          </button>
+
+          <button mat-icon-button color="warn" (click)="openDeleteDialog(row)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="2">Nenhuma venda "{{input.value}}" foi encontrada</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of vendas"></mat-paginator>
+  </div>
+</div>

@@ -3,21 +3,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProdutoService } from 'src/app/services/produto.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { VendaService } from 'src/app/services/venda.service';
 import { ConstantesGeral } from 'src/app/utils/constantes-geral';
 
-import { CreateProdutoDialogComponent } from '../create-produto-dialog/create-produto-dialog.component';
-import { DeleteProdutoDialogComponent } from '../delete-produto-dialog/delete-produto-dialog.component';
-import { EditProdutoDialogComponent } from '../edit-produto-dialog/edit-produto-dialog.component';
+import { CreateVendaDialogComponent } from '../create-venda-dialog/create-venda-dialog.component';
+import { DeleteVendaDialogComponent } from '../delete-venda-dialog/delete-venda-dialog.component';
 
 @Component({
-  selector: 'app-listagem-produto',
-  templateUrl: './listagem-produto.component.html',
-  styleUrls: ['./listagem-produto.component.css']
+  selector: 'app-venda-listagem',
+  templateUrl: './venda-listagem.component.html',
+  styleUrls: ['./venda-listagem.component.css']
 })
-export class ListagemProdutoComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['nome', 'descricao', 'preco', 'status', 'nomeCategoria', 'acoes' ];
+export class VendaListagemComponent implements AfterViewInit, OnInit {
+  displayedColumns: string[] = ['nomeCliente', 'noContatoCliente', 'formaPagamento', 'loginVendedor', 'dataVenda', 'totalCompra', 'acoes' ];
   dataSource = new MatTableDataSource<any>();
 
   respostaMensagem: any;
@@ -27,7 +26,7 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
 
   isLoading = false;
 
-  constructor(private produtoService: ProdutoService, public dialog: MatDialog, private snackbarService: SnackbarService) { }
+  constructor(private vendaService: VendaService, public dialog: MatDialog, private snackbarService: SnackbarService) { }
 
   ngOnInit() {
     this.carregarTabela();
@@ -40,7 +39,7 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
 
   carregarTabela() {
     this.isLoading = true;
-    this.produtoService.getAllProduto().subscribe(data => {
+    this.vendaService.getVenda().subscribe(data => {
       this.dataSource.data = data;
       this.isLoading = false;
     });
@@ -55,31 +54,12 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
     }
   }
 
-  openEditDialog(row: any): void {
-    const dialogRef = this.dialog.open(EditProdutoDialogComponent, {
-      width: '800px',
-      height: '500px',
-      data: row
-    });
+  openViewDialog(row: any){
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.isLoading = true;
-        this.produtoService.updateProduto(result).subscribe(response => {
-          this.isLoading = false;
-          this.carregarTabela();
-          this.respostaMensagem = response?.mensagem || "Produto atualizado com sucesso!";
-          this.snackbarService.openSnackBar(this.respostaMensagem, "");
-        }, (error) => {
-          this.respostaMensagem = error.error?.mensagem || ConstantesGeral.erroGenerico;
-          this.snackbarService.openSnackBar(this.respostaMensagem, ConstantesGeral.error);
-        });
-      }
-    });
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateProdutoDialogComponent, {
+    const dialogRef = this.dialog.open(CreateVendaDialogComponent, {
       width: '800px',
       height: '500px',
     });
@@ -87,10 +67,10 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.isLoading = true;
-        this.produtoService.addNewProduto(result).subscribe(response => {
+        this.vendaService.gerarRelatorio(result).subscribe((response: any) => {
           this.isLoading = false;
           this.carregarTabela();
-          this.respostaMensagem = response?.mensagem || "Produto criado com sucesso!";
+          this.respostaMensagem = response?.mensagem || "Venda criado com sucesso!";
           this.snackbarService.openSnackBar(this.respostaMensagem, "");
         }, (error) => {
           this.respostaMensagem = error.error?.mensagem || ConstantesGeral.erroGenerico;
@@ -101,7 +81,7 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
   }
 
   openDeleteDialog(row: any): void {
-    const dialogRef = this.dialog.open(DeleteProdutoDialogComponent, {
+    const dialogRef = this.dialog.open(DeleteVendaDialogComponent, {
       width: '350px',
       height: '300PX',
       data: row
@@ -110,7 +90,7 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.isLoading = true;
-        this.produtoService.deleteProduto(result).subscribe(response => {
+        this.vendaService.deleteById(result).subscribe((response: any) => {
           this.isLoading = false;
           this.carregarTabela();
           this.respostaMensagem = response?.mensagem;
