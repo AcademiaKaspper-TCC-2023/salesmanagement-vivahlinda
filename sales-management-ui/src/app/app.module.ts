@@ -34,6 +34,8 @@ import { NavComponent } from './components/nav/nav.component';
 import { AlterarSenhaComponent } from './components/usuario/alterar-senha/alterar-senha.component';
 import { EsqueciMinhaSenhaDialogComponent } from './esqueci-minha-senha-dialog/esqueci-minha-senha-dialog.component';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
+import { EditCategoriaDialogComponent } from './components/categoria/edit-categoria-dialog/edit-categoria-dialog.component';
+import { CreateCategoriaDialogComponent } from './components/categoria/create-categoria-dialog/create-categoria-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { TokenInterceptorInterceptor } from './services/token-interceptor.interc
     AlterarSenhaComponent,
     LoginComponent,
     EsqueciMinhaSenhaDialogComponent,
-    ListagemCategoriaComponent
+    ListagemCategoriaComponent,
+    EditCategoriaDialogComponent,
+    CreateCategoriaDialogComponent
   ],
   imports: [
     BrowserModule,

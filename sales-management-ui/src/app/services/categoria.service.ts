@@ -20,4 +20,11 @@ export class CategoriaService {
     return this.httpClient.get(`${this.url}/getAllCategoria`);
   }
 
+  addCategoria(categoria: any): Observable<any> {
+    return this.httpClient.post(`${this.url}/addCategoria`, categoria, { headers: this.headers });
+  }
+
+  updateCategoria(categoria: any): Observable<any> {
+    return this.httpClient.post(`${this.url}/updateCategoria`, categoria, { headers: this.headers });
+  }
 }
