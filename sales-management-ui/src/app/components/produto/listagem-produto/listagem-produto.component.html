@@ -15,22 +15,29 @@
 
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
-        <td mat-cell *matCellDef="let row"> {{row.nome}} </td>
+        <td mat-cell *matCellDef="let row" [matTooltip]="row.nome.length > 30 ? row.nome : ''">
+          {{ row.nome | slice:0:30 }}{{ row.nome.length > 30 ? '...' : '' }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="descricao">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Descricao </th>
-        <td mat-cell *matCellDef="let row"> {{row.descricao}} </td>
+        <td mat-cell *matCellDef="let row" [matTooltip]="row.descricao.length > 30 ? row.descricao : ''">
+          {{ row.descricao | slice:0:30 }}{{ row.descricao.length > 30 ? '...' : '' }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="preco">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Preço </th>
-        <td mat-cell *matCellDef="let row"> {{row.preco}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.preco | currency:'BRL':'symbol':'1.2-2'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Disponivel? </th>
-        <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+        <td mat-cell *matCellDef="let row" class="icon-cell">
+          <mat-icon *ngIf="row.status" style="color: green;" matTooltip="Produto disponível">check</mat-icon>
+          <mat-icon *ngIf="!row.status" style="color: red;" matTooltip="Produto Indisponível">close</mat-icon>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="nomeCategoria">

@@ -40,6 +40,8 @@ import { ListagemProdutoComponent } from './components/produto/listagem-produto/
 import { EditProdutoDialogComponent } from './components/produto/edit-produto-dialog/edit-produto-dialog.component';
 import { DeleteProdutoDialogComponent } from './components/produto/delete-produto-dialog/delete-produto-dialog.component';
 import { CreateProdutoDialogComponent } from './components/produto/create-produto-dialog/create-produto-dialog.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @NgModule({
   declarations: [
@@ -88,7 +90,8 @@ import { CreateProdutoDialogComponent } from './components/produto/create-produt
     MatDialogModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatTooltipModule
   ],
   providers: [
     HttpClientModule,
