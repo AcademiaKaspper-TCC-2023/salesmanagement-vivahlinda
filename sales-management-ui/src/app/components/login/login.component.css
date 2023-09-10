@@ -7,7 +7,7 @@
 
 .left-column {
   flex: 1;
-  background-image: url('../../../assets/img/side-image.svg');
+  background-image: url("../../../assets/img/side-image.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -30,7 +30,7 @@
 .custom-card {
   width: 100%;
   max-width: 550px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 182, 193, 1);
 }
 
 .mat-form-field {
@@ -42,17 +42,13 @@
   width: 100%;
 }
 
-
 mat-card-title {
   font-size: 24px;
   color: #fff;
 }
-
-
 
 .custom-button:disabled {
   background-color: #ccc;
   color: #666;
   cursor: not-allowed;
 }
-

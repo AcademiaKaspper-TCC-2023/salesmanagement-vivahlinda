@@ -38,10 +38,11 @@
         Alterar Senha
       </a>
 
-      <a mat-list-item routerLink="/">
+      <a mat-list-item (click)="logout()">
         <i class="material-icons">logout</i>
         Logout
       </a>
+
 
       <div class="sidenav-footer">
         <p><span ><i class="material-icons">account_circle</i></span> {{ usuarioLogado.nome }}</p>

@@ -34,17 +34,15 @@
               </mat-error>
             </mat-form-field>
 
-            <!-- <button type="submit" mat-raised-button color="primary" class="fullWidth">
+            <button type="submit" mat-raised-button color="primary" class="fullWidth custom-button" (click)="login()"
+              [disabled]="!loginForm.valid">
               Entrar
-            </button> -->
-            <button type="submit" mat-raised-button color="primary" class="fullWidth"
-            (click)="login()">
-            Entrar
-          </button>
+            </button>
+
           </form>
         </mat-card-content>
         <mat-card-actions>
-          <button class="fullWidth" mat-button color="accent" (click)="toggleCadastroMode()">
+          <button class="fullWidth" mat-button color="warn" (click)="toggleCadastroMode()">
             Cadastrar Novo Usuário
           </button>
           <button class="fullWidth" mat-button color="primary" (click)="esqueciMinhaSenha()">
@@ -123,13 +121,13 @@
             </mat-form-field>
 
             <button type="submit" mat-raised-button color="primary" class="fullWidth custom-button"
-              (click)="cadastrarNovoUsuario()">
+              (click)="cadastrarNovoUsuario()" [disabled]="!inscreverForm.valid">
               Cadastrar
             </button>
           </form>
         </mat-card-content>
         <mat-card-actions>
-          <button class="fullWidth" mat-button color="accent" (click)="toggleCadastroMode()">
+          <button class="fullWidth" mat-button color="warn" (click)="toggleCadastroMode()">
             Voltar para o Login
           </button>
         </mat-card-actions>

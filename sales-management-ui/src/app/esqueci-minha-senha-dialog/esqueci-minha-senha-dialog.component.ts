@@ -44,13 +44,11 @@ export class EsqueciMinhaSenhaDialogComponent implements OnInit {
   }
 
   enviarEmail() {
-    // this.ngxUiLoaderService.start();
     var formData = this.esqueciMinhaSenhaForm.value;
     var dados = {
       email: formData.email
     }
     this.usuarioService.esqueciMinhaSenha(dados).subscribe((resp: any) => {
-      // this.ngxUiLoaderService.stop();
       this.respostaMensagem = resp?.mensagem;
       this.dialogRef.close();
       this.snackbarService.openSnackBar(this.respostaMensagem, "");
@@ -58,7 +56,6 @@ export class EsqueciMinhaSenhaDialogComponent implements OnInit {
       this.fecharDialog();
 
     }, (error) => {
-      // this.ngxUiLoaderService.stop();
       if (error.error?.mensagem) {
         this.respostaMensagem = error.error?.mensagem;
       } else {

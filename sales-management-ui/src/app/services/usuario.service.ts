@@ -27,4 +27,8 @@ export class UsuarioService {
   esqueciMinhaSenha(dados: any) {
     return this.httpClient.post(this.url + "/usuario/recuperarSenha", dados, { headers: new HttpHeaders().set('Content-Type', 'application/json') })
   }
+
+  checkToken() {
+    return this.httpClient.get(this.url + "/usuario/checkToken")
+  }
 }

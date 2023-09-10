@@ -27,4 +27,10 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.router.navigate(['dashboard']);
   }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/entrar']);
+  }
+
 }

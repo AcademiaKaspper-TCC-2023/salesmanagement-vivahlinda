@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Chart } from 'chart.js/auto'; // Use 'chart.js/auto' em vez de 'chart.js'
+import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-bar-chart',
@@ -7,15 +7,18 @@ import { Chart } from 'chart.js/auto'; // Use 'chart.js/auto' em vez de 'chart.j
   styleUrls: ['./bar-chart.component.css']
 })
 export class BarChartComponent implements OnInit {
-  @Input() salesData!: any[]; // Recebe os dados de vendas mensais
+  @Input() salesData!: any[];
 
   chart: any;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.createBarChart();
+    if (this.salesData && this.salesData.length > 0) {
+      this.createBarChart();
+    }
   }
+
 
   createBarChart() {
     this.chart = new Chart('barChart', {

@@ -41,8 +41,22 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.checkToken();
     this.initFormInscriver();
     this.initFormLogin();
+  }
+
+  checkToken() {
+    this.usuarioService.checkToken().subscribe({
+      next: (resp: any) => {
+        console.log("token checadoooooo", resp);
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error: any) => {
+        console.log('token não encontrado', error);
+      }
+    });
+
   }
 
   initFormLogin(){
@@ -65,18 +79,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // this.ngxUiLoaderService.start();
+    //
     var formData = this.loginForm.value;
     var dados = {
       email: formData.email,
       senha: formData.senha
     }
     this.usuarioService.login(dados).subscribe((resp: any) => {
-      // this.ngxUiLoaderService.stop();
+      //
       localStorage.setItem('token', resp.token);
       this.router.navigate(['/dashboard'])
     }, (error) => {
-      // this.ngxUiLoaderService.stop();
+      //
       console.log("Erro ao fazer o login", error);
       if (error.error?.message) {
         this.respostaMensagem = error.error?.message;
@@ -88,7 +102,7 @@ export class LoginComponent implements OnInit {
   }
 
   cadastrarNovoUsuario() {
-    // this.ngxService.start();
+    //
     var dadosForm = this.inscreverForm.value;
     var dados = {
       nome: dadosForm.nome,
@@ -101,17 +115,21 @@ export class LoginComponent implements OnInit {
     }
 
     this.usuarioService.signup(dados).subscribe((resp: any) => {
-      // this.ngxService.stop();
+      //
       this.respostaMensagem = resp?.mensagem;
       this.snackbarService.openSnackBar(this.respostaMensagem, "");
-      this.router.navigate(['/']);
+      this.router.navigate(['/entrar']);
+      this.toggleCadastroMode();
     }, (error) => {
-      // this.ngxService.stop();
+      //
       if (error.error?.mensagem) {
         this.respostaMensagem = error.error?.mensagem;
       } else {
         this.respostaMensagem = ConstantesGeral.erroGenerico;
       }
+
+      this.router.navigate(['/entrar']);
+      this.inscreverForm.reset();
 
       this.snackbarService.openSnackBar(this.respostaMensagem, ConstantesGeral.error)
     })
@@ -120,7 +138,6 @@ export class LoginComponent implements OnInit {
   toggleCadastroMode() {
     this.cadastroMode = !this.cadastroMode;
   }
-
 
   esqueciMinhaSenha() {
     const dialogRef = this.dialog.open(EsqueciMinhaSenhaDialogComponent, {
@@ -137,38 +154,4 @@ export class LoginComponent implements OnInit {
   formatarDataParaBackend(data: Date): string {
     return this.datePipe.transform(data, 'dd/MM/yyyy') || '';
   }
-
-  // exibirErro(formControlName: string, form: string) {
-
-  //   let control;
-
-  //   if (form === 'inscreverForm') {
-  //     control = this.inscreverForm.get(formControlName);
-  //   } else {
-  //     // control = this.loginForm.get(formControlName);
-  //   }
-
-  //   return control?.touched && control?.invalid;
-  // }
-
-  // getErrorMessage(formControlName: string, form: string): string {
-  //   let control;
-  //   if (form === 'inscreverForm') {
-  //     control = this.inscreverForm.get(formControlName);
-  //   } else {
-  //     // control = this.loginForm.get(formControlName);
-  //   }
-
-  //   const friendlyName = this.fieldLabels[formControlName] || formControlName;
-  //   if (control?.touched && control?.invalid) {
-  //     if (control.errors?.required) {
-  //       return `O campo ${friendlyName} é requerido`;
-  //     }
-  //     if (control.errors?.pattern) {
-  //       return `O campo ${friendlyName} está inválido`;
-  //     }
-  //   }
-  //   return '';
-  // }
-
 }
