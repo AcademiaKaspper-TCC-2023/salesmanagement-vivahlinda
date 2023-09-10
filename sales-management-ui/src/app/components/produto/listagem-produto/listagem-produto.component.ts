@@ -102,8 +102,8 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
 
   openDeleteDialog(row: any): void {
     const dialogRef = this.dialog.open(DeleteProdutoDialogComponent, {
-      width: '450px',
-      height: '400PX',
+      width: '350px',
+      height: '300PX',
       data: row
     });
 

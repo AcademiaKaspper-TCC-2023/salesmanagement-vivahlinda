@@ -1,8 +1,14 @@
 <h2 mat-dialog-title>Deletar Produto</h2>
 <mat-dialog-content>
-  Deseja realmente deletar o produto {{data.nome}}?
+  Deseja realmente deletar o produto
+  <span [matTooltip]="data.nome.length > 30 ? data.nome : ''">
+    {{ data.nome | slice:0:30 }}{{ data.nome.length > 30 ? '...' : '' }}
+  </span>?
 </mat-dialog-content>
+
 <mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">NÃO</button>
-  <button mat-button [mat-dialog-close]="data.id">SIM</button>
+  <button class="fullWidth" mat-raised-button color="primary" mat-button
+    (click)="onNoClick()">NÃO</button>
+  <button class="fullWidth" style="margin-top: 1rem;" mat-raised-button color="warn"
+    [mat-dialog-close]="data.id">SIM</button>
 </mat-dialog-actions>
