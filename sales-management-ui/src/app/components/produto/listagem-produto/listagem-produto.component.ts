@@ -57,8 +57,8 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
 
   openEditDialog(row: any): void {
     const dialogRef = this.dialog.open(EditProdutoDialogComponent, {
-      width: '700px',
-      height: '400px',
+      width: '800px',
+      height: '500px',
       data: row
     });
 

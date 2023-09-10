@@ -1,20 +1,35 @@
 <h2 mat-dialog-title>Editar Produto</h2>
 <mat-dialog-content>
-  <mat-form-field>
+
+  <mat-form-field class="fullWidth">
     <mat-label>Nome</mat-label>
-    <input matInput [(ngModel)]="data.nome">
+    <input matInput [(ngModel)]="data.nome" required>
   </mat-form-field>
-  <mat-form-field>
+
+  <!-- Descrição -->
+  <mat-form-field class="fullWidth">
     <mat-label>Descrição</mat-label>
-    <input matInput [(ngModel)]="data.descricao">
+    <input matInput [(ngModel)]="data.descricao" required>
   </mat-form-field>
-  <mat-form-field>
+
+  <!-- Categoria -->
+  <mat-form-field class="fullWidth">
+    <mat-label>Categoria</mat-label>
+    <mat-select [(ngModel)]="data.categoriaId">
+      <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+        {{ categoria.nome }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Preço -->
+  <mat-form-field class="fullWidth">
     <mat-label>Preço</mat-label>
-    <input matInput [(ngModel)]="data.preco">
+    <input matInput [(ngModel)]="data.preco" required type="text">
   </mat-form-field>
-  <!-- Adicione outros campos conforme necessário -->
+
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-button [mat-dialog-close]="data">Salvar</button>
+  <button class="fullWidth" mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
+  <button class="fullWidth" mat-raised-button color="primary" mat-button [mat-dialog-close]="data">Salvar</button>
 </mat-dialog-actions>
