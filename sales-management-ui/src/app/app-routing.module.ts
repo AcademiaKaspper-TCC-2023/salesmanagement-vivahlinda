@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AlterarSenhaComponent } from './components/usuario/alterar-senha/alterar-senha.component';
 import { LoginComponent } from './components/login/login.component';
 import { RouteGuardService } from './services/route-guard.service';
+import { ListagemCategoriaComponent } from './components/categoria/listagem-categoria/listagem-categoria.component';
 
 const routes: Routes = [
   { path: 'entrar', component: LoginComponent },
@@ -14,6 +15,12 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        data: { expectedRole: ['usuario', 'admin'] },
+        canActivate: [RouteGuardService]
+      },
+      {
+        path: 'categoria/listagem',
+        component: ListagemCategoriaComponent,
         data: { expectedRole: ['usuario', 'admin'] },
         canActivate: [RouteGuardService]
       },

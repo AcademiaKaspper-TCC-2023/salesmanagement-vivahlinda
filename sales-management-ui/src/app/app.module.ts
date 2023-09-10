@@ -12,11 +12,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ListagemCategoriaComponent } from './components/categoria/listagem-categoria/listagem-categoria.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BarChartComponent } from './components/dashboard/shared/bar-chart/bar-chart.component';
 import { LoginComponent } from './components/login/login.component';
@@ -31,8 +34,6 @@ import { NavComponent } from './components/nav/nav.component';
 import { AlterarSenhaComponent } from './components/usuario/alterar-senha/alterar-senha.component';
 import { EsqueciMinhaSenhaDialogComponent } from './esqueci-minha-senha-dialog/esqueci-minha-senha-dialog.component';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
-
-
 
 @NgModule({
   declarations: [
@@ -42,13 +43,13 @@ import { TokenInterceptorInterceptor } from './services/token-interceptor.interc
     BarChartComponent,
     AlterarSenhaComponent,
     LoginComponent,
-    EsqueciMinhaSenhaDialogComponent
+    EsqueciMinhaSenhaDialogComponent,
+    ListagemCategoriaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
     MatFormFieldModule,
     MatCheckboxModule,
     MatSnackBarModule,
@@ -73,7 +74,9 @@ import { TokenInterceptorInterceptor } from './services/token-interceptor.interc
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     HttpClientModule,
