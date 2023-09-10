@@ -18,6 +18,7 @@ import { exibirErro, fieldLabels, getErrorMessage } from '../../utils/form-utils
 export class LoginComponent implements OnInit {
   email: string = '';
   senha: string = '';
+  nomeUser: string = '';
   cadastroMode: boolean = false;
 
   isLoading = false;
@@ -90,6 +91,7 @@ export class LoginComponent implements OnInit {
     this.usuarioService.login(dados).subscribe((resp: any) => {
       this.isLoading = false;
       localStorage.setItem('token', resp.token);
+      this.snackbarService.openSnackBar(`Bem vindo de volta!`, "");
       this.router.navigate(['/dashboard'])
     }, (error) => {
       this.isLoading = false;

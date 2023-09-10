@@ -25,4 +25,7 @@ export class ConstantesGeral {
 
   public static success: string = 'success';
 
+  public static perfil: string = 'Perfil do usuário:';
+  static erroPerfil: string = 'Erro ao buscar o perfil do usuário: ';
+
 }

@@ -31,4 +31,8 @@ export class UsuarioService {
   checkToken() {
     return this.httpClient.get(this.url + "/usuario/checkToken")
   }
+
+  perfil() {
+    return this.httpClient.get(this.url + "/usuario/perfil")
+  }
 }
