@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,24 +12,32 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './listagem-categoria.component.html',
   styleUrls: ['./listagem-categoria.component.css']
 })
-export class ListagemCategoriaComponent implements AfterViewInit {
+export class ListagemCategoriaComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'nome', 'editar'];
   dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private categoriaService: CategoriaService, public dialog: MatDialog) { }
-
   isLoading = false;
 
-  ngAfterViewInit() {
-    this.categoriaService.getAllCategoria().subscribe(data => {
-      this.dataSource.data = data;
-    });
+  constructor(private categoriaService: CategoriaService, public dialog: MatDialog) { }
 
+  ngOnInit() {
+    this.carregarTabela();
+  }
+
+  ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  private carregarTabela() {
+    this.isLoading = true;
+    this.categoriaService.getAllCategoria().subscribe(data => {
+      this.dataSource.data = data;
+      this.isLoading = false;
+    });
   }
 
   applyFilter(event: Event) {
@@ -53,10 +61,7 @@ export class ListagemCategoriaComponent implements AfterViewInit {
         this.isLoading = true;
         this.categoriaService.updateCategoria(result).subscribe(() => {
           this.isLoading = false;
-
-          this.categoriaService.getAllCategoria().subscribe(data => {
-            this.dataSource.data = data;
-          });
+          this.carregarTabela();
         });
       }
     });
@@ -73,12 +78,9 @@ export class ListagemCategoriaComponent implements AfterViewInit {
         this.isLoading = true;
         this.categoriaService.addCategoria(result).subscribe(() => {
           this.isLoading = false;
-          this.categoriaService.getAllCategoria().subscribe(data => {
-            this.dataSource.data = data;
-          });
+          this.carregarTabela();
         });
       }
     });
   }
 }
-
