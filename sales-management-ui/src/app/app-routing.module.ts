@@ -6,6 +6,7 @@ import { AlterarSenhaComponent } from './components/usuario/alterar-senha/altera
 import { LoginComponent } from './components/login/login.component';
 import { RouteGuardService } from './services/route-guard.service';
 import { ListagemCategoriaComponent } from './components/categoria/listagem-categoria/listagem-categoria.component';
+import { ListagemProdutoComponent } from './components/produto/listagem-produto/listagem-produto.component';
 
 const routes: Routes = [
   { path: 'entrar', component: LoginComponent },
@@ -21,6 +22,12 @@ const routes: Routes = [
       {
         path: 'categoria/listagem',
         component: ListagemCategoriaComponent,
+        data: { expectedRole: ['usuario', 'admin'] },
+        canActivate: [RouteGuardService]
+      },
+      {
+        path: 'produto/listagem',
+        component: ListagemProdutoComponent,
         data: { expectedRole: ['usuario', 'admin'] },
         canActivate: [RouteGuardService]
       },

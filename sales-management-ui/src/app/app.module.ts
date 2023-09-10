@@ -36,6 +36,10 @@ import { EsqueciMinhaSenhaDialogComponent } from './esqueci-minha-senha-dialog/e
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
 import { EditCategoriaDialogComponent } from './components/categoria/edit-categoria-dialog/edit-categoria-dialog.component';
 import { CreateCategoriaDialogComponent } from './components/categoria/create-categoria-dialog/create-categoria-dialog.component';
+import { ListagemProdutoComponent } from './components/produto/listagem-produto/listagem-produto.component';
+import { EditProdutoDialogComponent } from './components/produto/edit-produto-dialog/edit-produto-dialog.component';
+import { DeleteProdutoDialogComponent } from './components/produto/delete-produto-dialog/delete-produto-dialog.component';
+import { CreateProdutoDialogComponent } from './components/produto/create-produto-dialog/create-produto-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,11 @@ import { CreateCategoriaDialogComponent } from './components/categoria/create-ca
     EsqueciMinhaSenhaDialogComponent,
     ListagemCategoriaComponent,
     EditCategoriaDialogComponent,
-    CreateCategoriaDialogComponent
+    CreateCategoriaDialogComponent,
+    ListagemProdutoComponent,
+    EditProdutoDialogComponent,
+    DeleteProdutoDialogComponent,
+    CreateProdutoDialogComponent
   ],
   imports: [
     BrowserModule,
