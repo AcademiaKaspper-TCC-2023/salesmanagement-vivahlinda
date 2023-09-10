@@ -1,14 +1,14 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { EsqueciMinhaSenhaDialogComponent } from 'src/app/esqueci-minha-senha-dialog/esqueci-minha-senha-dialog.component';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ConstantesGeral } from 'src/app/utils/constantes-geral';
-import { DatePipe } from '@angular/common';
-import { fieldLabels, exibirErro, getErrorMessage } from '../../utils/form-utils';
+
+import { exibirErro, fieldLabels, getErrorMessage } from '../../utils/form-utils';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   email: string = '';
   senha: string = '';
   cadastroMode: boolean = false;
+
+  isLoading = false;
 
   hide = true;
 
@@ -79,18 +81,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    //
+    this.isLoading = true;
     var formData = this.loginForm.value;
     var dados = {
       email: formData.email,
       senha: formData.senha
     }
     this.usuarioService.login(dados).subscribe((resp: any) => {
-      //
+      this.isLoading = false;
       localStorage.setItem('token', resp.token);
       this.router.navigate(['/dashboard'])
     }, (error) => {
-      //
+      this.isLoading = false;
       console.log("Erro ao fazer o login", error);
       if (error.error?.message) {
         this.respostaMensagem = error.error?.message;
@@ -102,7 +104,7 @@ export class LoginComponent implements OnInit {
   }
 
   cadastrarNovoUsuario() {
-    //
+    this.isLoading = true;
     var dadosForm = this.inscreverForm.value;
     var dados = {
       nome: dadosForm.nome,
@@ -115,13 +117,13 @@ export class LoginComponent implements OnInit {
     }
 
     this.usuarioService.signup(dados).subscribe((resp: any) => {
-      //
+      this.isLoading = false;
       this.respostaMensagem = resp?.mensagem;
       this.snackbarService.openSnackBar(this.respostaMensagem, "");
       this.router.navigate(['/entrar']);
       this.toggleCadastroMode();
     }, (error) => {
-      //
+      this.isLoading = false;
       if (error.error?.mensagem) {
         this.respostaMensagem = error.error?.mensagem;
       } else {

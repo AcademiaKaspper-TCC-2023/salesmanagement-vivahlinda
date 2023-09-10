@@ -1,4 +1,7 @@
 <div style="text-align: center;">
   <h1>Gráfico de Vendas Mensais - 2023</h1>
-  <app-bar-chart [salesData]="salesData"></app-bar-chart>
+
+  <mat-spinner *ngIf="isLoading" class="spinner"></mat-spinner>
+
+  <app-bar-chart [salesData]="salesData" *ngIf="!isLoading"></app-bar-chart>
 </div>

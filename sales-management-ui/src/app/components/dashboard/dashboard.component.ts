@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { VendaService } from 'src/app/services/venda.service';
+import { ConstantesGeral } from 'src/app/utils/constantes-geral';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,21 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   salesData!: any[];
+  isLoading: boolean = true;
+
+  constructor(private vendaService: VendaService) {}
 
   ngOnInit(): void {
-    this.salesData = [
-      { mes: 'JANUARY', totalVendas: 30000000.57 },
-      { mes: 'FEBRUARY', totalVendas: 10000000.54 },
-      { mes: 'MARCH', totalVendas: 30000000.57 },
-      { mes: 'APRIL', totalVendas: 120000.07 },
-      { mes: 'MAY', totalVendas: 30000000.57 },
-      { mes: 'JUNE', totalVendas: 10000000.54 },
-      { mes: 'JULY', totalVendas: 30000000.57 },
-      { mes: 'AUGUST', totalVendas: 42000.07 },
-      { mes: 'SEPTEMBER', totalVendas: 30000000.57 },
-      { mes: 'OCTOBER', totalVendas: 0 },
-      { mes: 'NOVEMBER', totalVendas: 0 },
-      { mes: 'DECEMBER', totalVendas: 0 }
-    ];
+    this.vendaService.getVendasMensais().pipe(
+      delay(2500)
+    ).subscribe({
+      next: data => {
+        this.salesData = data;
+        this.isLoading = false;
+      },
+      error: error => {
+        console.error(ConstantesGeral.erroGenerico, error);
+        this.isLoading = false;
+      }
+    });
+
   }
 }
