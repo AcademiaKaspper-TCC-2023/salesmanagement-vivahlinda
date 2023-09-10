@@ -68,11 +68,9 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
         this.produtoService.updateProduto(result).subscribe(response => {
           this.isLoading = false;
           this.carregarTabela();
-          // Notificar o usuário sobre a atualização bem-sucedida do produto
           this.respostaMensagem = response?.mensagem || "Produto atualizado com sucesso!";
           this.snackbarService.openSnackBar(this.respostaMensagem, "");
         }, (error) => {
-          // Notificar o usuário em caso de erro
           this.respostaMensagem = error.error?.mensagem || ConstantesGeral.erroGenerico;
           this.snackbarService.openSnackBar(this.respostaMensagem, ConstantesGeral.error);
         });
@@ -82,8 +80,8 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProdutoDialogComponent, {
-      width: '700px',
-      height: '400px',
+      width: '800px',
+      height: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -92,11 +90,9 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
         this.produtoService.addNewProduto(result).subscribe(response => {
           this.isLoading = false;
           this.carregarTabela();
-          // Notificar o usuário sobre a criação bem-sucedida do produto
           this.respostaMensagem = response?.mensagem || "Produto criado com sucesso!";
           this.snackbarService.openSnackBar(this.respostaMensagem, "");
         }, (error) => {
-          // Notificar o usuário em caso de erro
           this.respostaMensagem = error.error?.mensagem || ConstantesGeral.erroGenerico;
           this.snackbarService.openSnackBar(this.respostaMensagem, ConstantesGeral.error);
         });
@@ -117,9 +113,8 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
         this.produtoService.deleteProduto(result).subscribe(response => {
           this.isLoading = false;
           this.carregarTabela();
-          // Aqui você pode adicionar uma notificação para o usuário com a mensagem de retorno do servidor.
           this.respostaMensagem = response?.mensagem;
-          dialogRef.close(); // Fechar o diálogo aqui
+          dialogRef.close();
           this.snackbarService.openSnackBar(this.respostaMensagem, "");
         }, (error) => {
           if (error.error?.mensagem) {
@@ -128,7 +123,7 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
             this.respostaMensagem = ConstantesGeral.erroGenerico;
           }
           this.snackbarService.openSnackBar(this.respostaMensagem, ConstantesGeral.error);
-          dialogRef.close(); // Fechar o diálogo aqui também
+          dialogRef.close();
         });
       }
     });
