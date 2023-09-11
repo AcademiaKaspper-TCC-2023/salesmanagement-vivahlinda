@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { saveAs } from 'file-saver';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { VendaService } from 'src/app/services/venda.service';
 import { ConstantesGeral } from 'src/app/utils/constantes-geral';
@@ -16,7 +17,7 @@ import { ViewVendaDialogComponent } from '../view-venda-dialog/view-venda-dialog
   styleUrls: ['./venda-listagem.component.css']
 })
 export class VendaListagemComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['nomeCliente', 'noContatoCliente', 'formaPagamento', 'loginVendedor', 'dataVenda', 'totalCompra', 'acoes' ];
+  displayedColumns: string[] = ['nomeCliente', 'noContatoCliente', 'formaPagamento', 'loginVendedor', 'dataVenda', 'totalCompra', 'acoes'];
   dataSource = new MatTableDataSource<any>();
 
   respostaMensagem: any;
@@ -92,5 +93,27 @@ export class VendaListagemComponent implements AfterViewInit, OnInit {
         });
       }
     });
+  }
+
+  downloadRelatorio(valores: any) {
+    this.isLoading
+    var dados = {
+      nome: valores.nome,
+      email: valores.email,
+      uuid: valores.uuid,
+      numeroContato: valores.numeroContato,
+      pagamento: valores.pagamento,
+      totalCompra: valores.totalCompra.toString,
+      detalheProduto: valores.detalheProduto,
+    }
+
+    this.downloadFile(valores.uuid, dados);
+  }
+
+  downloadFile(nomeArquivo: any, dados: any) {
+    this.isLoading
+    this.vendaService.getPdf(dados).subscribe((response) => {
+      saveAs(response, nomeArquivo + '.pdf')
+    })
   }
 }
