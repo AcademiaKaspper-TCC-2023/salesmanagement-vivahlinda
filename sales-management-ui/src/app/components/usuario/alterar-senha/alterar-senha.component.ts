@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlterarSenha } from 'src/app/models/alterarSenha';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { ConstantesGeral } from 'src/app/utils/constantes-geral';
 
 @Component({
   selector: 'app-alterar-senha',
@@ -17,7 +20,7 @@ export class AlterarSenhaComponent implements OnInit {
     senhaNova: "",
   };
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private snackbarService: SnackbarService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -45,12 +48,24 @@ export class AlterarSenhaComponent implements OnInit {
 
       this.usuarioService.alterarSenha(dadosParaAPI).subscribe(
         (resposta) => {
-          console.log('Resposta da API:', resposta);
+          if (resposta) {
+            this.snackbarService.openSnackBar('Senha alterada com sucesso', '');
+            console.log('Resposta da API:', resposta);
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.snackbarService.openSnackBar('Resposta vazia da API', '');
+          }
         },
         (erro) => {
           console.error('Erro na API:', erro);
+          if (erro.error?.mensagem) {
+            this.snackbarService.openSnackBar(erro.error.mensagem, ConstantesGeral.error);
+          } else {
+            this.snackbarService.openSnackBar(ConstantesGeral.erroGenerico, ConstantesGeral.error);
+          }
         }
       );
     }
   }
+
 }

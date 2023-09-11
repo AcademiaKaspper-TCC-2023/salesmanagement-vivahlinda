@@ -7,7 +7,6 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 import { VendaService } from 'src/app/services/venda.service';
 import { ConstantesGeral } from 'src/app/utils/constantes-geral';
 
-import { CreateVendaDialogComponent } from '../create-venda-dialog/create-venda-dialog.component';
 import { DeleteVendaDialogComponent } from '../delete-venda-dialog/delete-venda-dialog.component';
 
 @Component({
@@ -56,28 +55,6 @@ export class VendaListagemComponent implements AfterViewInit, OnInit {
 
   openViewDialog(row: any){
 
-  }
-
-  openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateVendaDialogComponent, {
-      width: '800px',
-      height: '500px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.isLoading = true;
-        this.vendaService.gerarRelatorio(result).subscribe((response: any) => {
-          this.isLoading = false;
-          this.carregarTabela();
-          this.respostaMensagem = response?.mensagem || "Venda criado com sucesso!";
-          this.snackbarService.openSnackBar(this.respostaMensagem, "");
-        }, (error) => {
-          this.respostaMensagem = error.error?.mensagem || ConstantesGeral.erroGenerico;
-          this.snackbarService.openSnackBar(this.respostaMensagem, ConstantesGeral.error);
-        });
-      }
-    });
   }
 
   openDeleteDialog(row: any): void {

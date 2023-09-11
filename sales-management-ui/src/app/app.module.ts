@@ -41,11 +41,11 @@ import { DeleteProdutoDialogComponent } from './components/produto/delete-produt
 import { EditProdutoDialogComponent } from './components/produto/edit-produto-dialog/edit-produto-dialog.component';
 import { ListagemProdutoComponent } from './components/produto/listagem-produto/listagem-produto.component';
 import { AlterarSenhaComponent } from './components/usuario/alterar-senha/alterar-senha.component';
-import { CreateVendaDialogComponent } from './components/venda/create-venda-dialog/create-venda-dialog.component';
 import { DeleteVendaDialogComponent } from './components/venda/delete-venda-dialog/delete-venda-dialog.component';
 import { VendaListagemComponent } from './components/venda/venda-listagem/venda-listagem.component';
 import { EsqueciMinhaSenhaDialogComponent } from './esqueci-minha-senha-dialog/esqueci-minha-senha-dialog.component';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
+import { ViewVendaDialogComponent } from './components/venda/view-venda-dialog/view-venda-dialog.component';
 
 
 @NgModule({
@@ -65,8 +65,8 @@ import { TokenInterceptorInterceptor } from './services/token-interceptor.interc
     DeleteProdutoDialogComponent,
     CreateProdutoDialogComponent,
     VendaListagemComponent,
-    CreateVendaDialogComponent,
-    DeleteVendaDialogComponent
+    DeleteVendaDialogComponent,
+    ViewVendaDialogComponent
   ],
   imports: [
     BrowserModule,

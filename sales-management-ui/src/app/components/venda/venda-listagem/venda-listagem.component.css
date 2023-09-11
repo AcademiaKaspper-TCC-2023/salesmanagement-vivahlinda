@@ -1,7 +1,8 @@
 .container {
-  width: 90%;
+  width: 98%;
   margin: auto;
-} */
+}
+
 
 table {
   width: 100%;
@@ -12,3 +13,11 @@ table {
   width: 100%;
 }
 
+.action-button {
+  margin: 0 2px;
+  padding: 0;
+}
+
+table mat-header-row th.acoes-header {
+  text-align: center;
+}

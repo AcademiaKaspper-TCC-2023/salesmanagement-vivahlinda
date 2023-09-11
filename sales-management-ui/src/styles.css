@@ -48,3 +48,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   transform: translate(-50%, -50%);
   z-index: 1000;
 }
+
+.button-header {
+  text-align: center;
+}
