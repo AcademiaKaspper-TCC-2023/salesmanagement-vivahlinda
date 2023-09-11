@@ -1,1 +1,14 @@
-<p>delete-venda-dialog works!</p>
+<h2 mat-dialog-title>Deletar Venda</h2>
+<mat-dialog-content>
+  Deseja realmente a venda? - Cliente:
+  <span [matTooltip]="data.nomeCliente.length > 30 ? data.nomeCliente : ''">
+    {{ data.nomeCliente | slice:0:30 }}{{ data.nomeCliente.length > 30 ? '...' : '' }}
+  </span>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="fullWidth" mat-raised-button color="primary" mat-button
+    (click)="onNoClick()">NÃO</button>
+  <button class="fullWidth" style="margin-top: 1rem;" mat-raised-button color="warn"
+    [mat-dialog-close]="data.id">SIM</button>
+</mat-dialog-actions>

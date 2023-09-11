@@ -8,6 +8,7 @@ import { VendaService } from 'src/app/services/venda.service';
 import { ConstantesGeral } from 'src/app/utils/constantes-geral';
 
 import { DeleteVendaDialogComponent } from '../delete-venda-dialog/delete-venda-dialog.component';
+import { ViewVendaDialogComponent } from '../view-venda-dialog/view-venda-dialog.component';
 
 @Component({
   selector: 'app-venda-listagem',
@@ -53,9 +54,16 @@ export class VendaListagemComponent implements AfterViewInit, OnInit {
     }
   }
 
-  openViewDialog(row: any){
-
+  openViewDialog(row: any): void {
+    const dialogRef = this.dialog.open(ViewVendaDialogComponent, {
+      width: '950px',
+      maxHeight: '600px',
+      minHeight: '300px',
+      data: row
+    });
   }
+
+
 
   openDeleteDialog(row: any): void {
     const dialogRef = this.dialog.open(DeleteVendaDialogComponent, {
@@ -85,5 +93,4 @@ export class VendaListagemComponent implements AfterViewInit, OnInit {
       }
     });
   }
-
 }
