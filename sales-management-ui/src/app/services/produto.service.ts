@@ -30,4 +30,8 @@ export class ProdutoService {
     return this.httpClient.get(`${this.url}/getAllProduto`);
   }
 
+  updateStatus(dados: any) {
+    return this.httpClient.post(`${this.url}/updateStatus`, dados, { headers: this.headers });
+  }
+
 }

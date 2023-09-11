@@ -14,10 +14,16 @@ import { EditProdutoDialogComponent } from '../edit-produto-dialog/edit-produto-
 @Component({
   selector: 'app-listagem-produto',
   templateUrl: './listagem-produto.component.html',
-  styleUrls: ['./listagem-produto.component.css']
+  styleUrls: ['./listagem-produto.component.css'],
 })
 export class ListagemProdutoComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['nome', 'descricao', 'preco', 'status', 'nomeCategoria', 'acoes' ];
+  displayedColumns: string[] = [
+    'nome',
+    'descricao',
+    'preco',
+    'nomeCategoria',
+    'acoes',
+  ];
   dataSource = new MatTableDataSource<any>();
 
   respostaMensagem: any;
@@ -27,7 +33,11 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
 
   isLoading = false;
 
-  constructor(private produtoService: ProdutoService, public dialog: MatDialog, private snackbarService: SnackbarService) { }
+  constructor(
+    private produtoService: ProdutoService,
+    public dialog: MatDialog,
+    private snackbarService: SnackbarService,
+  ) {}
 
   ngOnInit() {
     this.carregarTabela();
@@ -40,7 +50,7 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
 
   carregarTabela() {
     this.isLoading = true;
-    this.produtoService.getAllProduto().subscribe(data => {
+    this.produtoService.getAllProduto().subscribe((data) => {
       this.dataSource.data = data;
       this.isLoading = false;
     });
@@ -59,21 +69,29 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(EditProdutoDialogComponent, {
       width: '850px',
       height: '600px',
-      data: row
+      data: row,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.isLoading = true;
-        this.produtoService.updateProduto(result).subscribe(response => {
-          this.isLoading = false;
-          this.carregarTabela();
-          this.respostaMensagem = response?.mensagem || "Produto atualizado com sucesso!";
-          this.snackbarService.openSnackBar(this.respostaMensagem, "");
-        }, (error) => {
-          this.respostaMensagem = error.error?.mensagem || ConstantesGeral.erroGenerico;
-          this.snackbarService.openSnackBar(this.respostaMensagem, ConstantesGeral.error);
-        });
+        this.produtoService.updateProduto(result).subscribe(
+          (response) => {
+            this.isLoading = false;
+            this.carregarTabela();
+            this.respostaMensagem =
+              response?.mensagem || 'Produto atualizado com sucesso!';
+            this.snackbarService.openSnackBar(this.respostaMensagem, '');
+          },
+          (error) => {
+            this.respostaMensagem =
+              error.error?.mensagem || ConstantesGeral.erroGenerico;
+            this.snackbarService.openSnackBar(
+              this.respostaMensagem,
+              ConstantesGeral.error
+            );
+          }
+        );
       }
     });
   }
@@ -84,18 +102,26 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
       height: '500px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.isLoading = true;
-        this.produtoService.addNewProduto(result).subscribe(response => {
-          this.isLoading = false;
-          this.carregarTabela();
-          this.respostaMensagem = response?.mensagem || "Produto criado com sucesso!";
-          this.snackbarService.openSnackBar(this.respostaMensagem, "");
-        }, (error) => {
-          this.respostaMensagem = error.error?.mensagem || ConstantesGeral.erroGenerico;
-          this.snackbarService.openSnackBar(this.respostaMensagem, ConstantesGeral.error);
-        });
+        this.produtoService.addNewProduto(result).subscribe(
+          (response) => {
+            this.isLoading = false;
+            this.carregarTabela();
+            this.respostaMensagem =
+              response?.mensagem || 'Produto criado com sucesso!';
+            this.snackbarService.openSnackBar(this.respostaMensagem, '');
+          },
+          (error) => {
+            this.respostaMensagem =
+              error.error?.mensagem || ConstantesGeral.erroGenerico;
+            this.snackbarService.openSnackBar(
+              this.respostaMensagem,
+              ConstantesGeral.error
+            );
+          }
+        );
       }
     });
   }
@@ -104,29 +130,67 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(DeleteProdutoDialogComponent, {
       width: '350px',
       height: '300PX',
-      data: row
+      data: row,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.isLoading = true;
-        this.produtoService.deleteProduto(result).subscribe(response => {
-          this.isLoading = false;
-          this.carregarTabela();
-          this.respostaMensagem = response?.mensagem;
-          dialogRef.close();
-          this.snackbarService.openSnackBar(this.respostaMensagem, "");
-        }, (error) => {
-          if (error.error?.mensagem) {
-            this.respostaMensagem = error.error?.mensagem;
-          } else {
-            this.respostaMensagem = ConstantesGeral.erroGenerico;
+        this.produtoService.deleteProduto(result).subscribe(
+          (response) => {
+            this.isLoading = false;
+            this.carregarTabela();
+            this.respostaMensagem = response?.mensagem;
+            dialogRef.close();
+            this.snackbarService.openSnackBar(this.respostaMensagem, '');
+          },
+          (error) => {
+            if (error.error?.mensagem) {
+              this.respostaMensagem = error.error?.mensagem;
+            } else {
+              this.respostaMensagem = ConstantesGeral.erroGenerico;
+            }
+            this.snackbarService.openSnackBar(
+              this.respostaMensagem,
+              ConstantesGeral.error
+            );
+            dialogRef.close();
           }
-          this.snackbarService.openSnackBar(this.respostaMensagem, ConstantesGeral.error);
-          dialogRef.close();
-        });
+        );
       }
     });
   }
 
+  onAtivaDesativa(status: any, id: any) {
+    this.isLoading = true;
+    var dados = {
+      status: status.toString(),
+      id: id,
+    };
+    this.produtoService.updateStatus(dados).subscribe(
+      (resp: any) => {
+        this.isLoading = false;
+        this.carregarTabela();
+        this.respostaMensagem = resp?.mensagem;
+        this.snackbarService.openSnackBar(
+          this.respostaMensagem,
+          ConstantesGeral.success
+        );
+      },
+      (error: any) => {
+        this.isLoading = false;
+
+        if (error.error?.message) {
+          this.respostaMensagem = error.error?.message;
+        } else {
+          this.respostaMensagem = ConstantesGeral.erroGenerico;
+        }
+
+        this.snackbarService.openSnackBar(
+          this.respostaMensagem,
+          ConstantesGeral.error
+        );
+      }
+    );
+  }
 }

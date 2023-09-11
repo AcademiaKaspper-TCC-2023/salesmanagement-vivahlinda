@@ -46,6 +46,7 @@ import { VendaListagemComponent } from './components/venda/venda-listagem/venda-
 import { EsqueciMinhaSenhaDialogComponent } from './esqueci-minha-senha-dialog/esqueci-minha-senha-dialog.component';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
 import { ViewVendaDialogComponent } from './components/venda/view-venda-dialog/view-venda-dialog.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -99,7 +100,8 @@ import { ViewVendaDialogComponent } from './components/venda/view-venda-dialog/v
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSlideToggleModule
   ],
   providers: [
     HttpClientModule,
