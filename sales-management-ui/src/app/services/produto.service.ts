@@ -34,4 +34,11 @@ export class ProdutoService {
     return this.httpClient.post(`${this.url}/updateStatus`, dados, { headers: this.headers });
   }
 
+  getByCategoria(id: number) {
+    return this.httpClient.get(`${this.url}/getByCategoria/` + id);
+  }
+
+  getProdutoById(id: number) {
+    return this.httpClient.get(`${this.url}/getProdutoById/` + id);
+  }
 }

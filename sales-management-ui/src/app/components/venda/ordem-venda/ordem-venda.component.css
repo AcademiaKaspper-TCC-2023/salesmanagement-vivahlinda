@@ -1,0 +1,42 @@
+mat-form-field {
+  padding: 5px;
+}
+
+
+.float-right {
+  float: right;
+}
+
+
+table {
+  width: 100%;
+}
+
+
+mat-card {
+  padding-bottom: 30px !important;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+
+mat-form-field {
+  padding: 10px;
+  width: 30%;
+}
+
+
+mat-card b {
+  font-size: 1.1rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
+
+mat-card:first-child {
+  text-align: center;
+}
+

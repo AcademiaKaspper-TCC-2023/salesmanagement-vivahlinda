@@ -8,6 +8,7 @@ import { RouteGuardService } from './services/route-guard.service';
 import { ListagemCategoriaComponent } from './components/categoria/listagem-categoria/listagem-categoria.component';
 import { ListagemProdutoComponent } from './components/produto/listagem-produto/listagem-produto.component';
 import { VendaListagemComponent } from './components/venda/venda-listagem/venda-listagem.component';
+import { OrdemVendaComponent } from './components/venda/ordem-venda/ordem-venda.component';
 
 const routes: Routes = [
   { path: 'entrar', component: LoginComponent },
@@ -35,6 +36,12 @@ const routes: Routes = [
       {
         path: 'venda/listagem',
         component: VendaListagemComponent,
+        data: { expectedRole: ['usuario', 'admin'] },
+        canActivate: [RouteGuardService]
+      },
+      {
+        path: 'venda/ordens',
+        component: OrdemVendaComponent,
         data: { expectedRole: ['usuario', 'admin'] },
         canActivate: [RouteGuardService]
       },

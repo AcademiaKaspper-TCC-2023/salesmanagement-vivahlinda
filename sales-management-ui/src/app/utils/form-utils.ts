@@ -9,6 +9,10 @@ export const fieldLabels: { [key: string]: string } = {
   pagamento: 'Método de Pagamento',
   quantidade: 'Quantidade',
   total: 'Total',
+  nomeCliente: 'Nome',
+  cpfCliente : 'CPF',
+  emailCliente  : 'E-mail',
+  noContatoCliente: 'Contato',
 };
 
 export function exibirErro(formControlName: string, form: FormGroup): boolean {

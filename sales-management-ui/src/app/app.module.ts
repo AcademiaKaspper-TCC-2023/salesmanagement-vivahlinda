@@ -47,7 +47,7 @@ import { EsqueciMinhaSenhaDialogComponent } from './esqueci-minha-senha-dialog/e
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
 import { ViewVendaDialogComponent } from './components/venda/view-venda-dialog/view-venda-dialog.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
+import { OrdemVendaComponent } from './components/venda/ordem-venda/ordem-venda.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     CreateProdutoDialogComponent,
     VendaListagemComponent,
     DeleteVendaDialogComponent,
-    ViewVendaDialogComponent
+    ViewVendaDialogComponent,
+    OrdemVendaComponent
   ],
   imports: [
     BrowserModule,

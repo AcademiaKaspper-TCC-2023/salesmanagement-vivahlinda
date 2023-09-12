@@ -1,0 +1,187 @@
+<div class="container">
+  <b><span style="font-size: 2rem;
+    color: #D80063;">Criar Ordem de Vendas</span></b>
+  <mat-card>
+
+
+    <button mat-flat-button color="primary" class="float-right" [disabled]="validarSubmit()" (click)="submitAction()">
+      <mat-icon class="mat-18">download</mat-icon> Enviar & Obter Fatura
+    </button>
+
+  </mat-card>
+
+  <mat-spinner *ngIf="isLoading" style="margin: 0 auto;"></mat-spinner>
+
+  <hr />
+
+  <mat-card>
+    <b><span>Detalhes do Cliente</span></b>
+    <form [formGroup]="gerenciarOrdemForm">
+      <div fxFlex fxLayout="column">
+        <div fxLayout="row wrap">
+
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Nome Cliente</mat-label>
+            <input matInput formControlName="nomeCliente" required />
+            <mat-error *ngIf="exibirErro('nomeCliente', gerenciarOrdemForm)">
+              {{ getErrorMessage('nomeCliente', gerenciarOrdemForm, fieldLabels) }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>CPF do Cliente</mat-label>
+            <input maxlength="15" matInput formControlName="cpfCliente" required />
+            <mat-error *ngIf="exibirErro('cpfCliente', gerenciarOrdemForm)">
+              {{ getErrorMessage('cpfCliente', gerenciarOrdemForm, fieldLabels) }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>E-mail Cliente</mat-label>
+            <input matInput formControlName="emailCliente" required />
+            <mat-error *ngIf="exibirErro('emailCliente', gerenciarOrdemForm)">
+              {{ getErrorMessage('emailCliente', gerenciarOrdemForm, fieldLabels) }}
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Contato Cliente</mat-label>
+            <input maxlength="11" matInput formControlName="noContatoCliente" required />
+            <mat-error *ngIf="exibirErro('noContatoCliente', gerenciarOrdemForm)">
+              {{ getErrorMessage('noContatoCliente', gerenciarOrdemForm, fieldLabels) }}
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Forma de Pagamento</mat-label>
+            <mat-select formControlName="formaPagamento" required>
+              <mat-option *ngFor="let metodo of metodosPagamento" [value]="metodo">
+                {{ metodo }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="exibirErro('formaPagamento', gerenciarOrdemForm)">
+              {{ getErrorMessage('formaPagamento', gerenciarOrdemForm, fieldLabels) }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+
+  <hr />
+
+
+
+  <mat-card>
+    <b><span>Selecione o Produto:</span></b>
+
+    <form [formGroup]="gerenciarOrdemForm">
+      <div fxFlex fxLayout="column">
+        <div fxLayout="row wrap">
+
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="categoria" (selectionChange)="getProdutobyCategoria($event.value)">
+              <mat-option *ngFor="let categoria of categorias" [value]="categoria">
+                {{ categoria?.nome }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Produto</mat-label>
+            <mat-select formControlName="produto" (selectionChange)="getProdutoDetalhes($event.value)">
+              <mat-option *ngFor="let produto of produtos" [value]="produto">
+                {{ produto?.nome }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Preço</mat-label>
+            <input matInput formControlName="preco" required readonly />
+            <mat-error *ngIf="exibirErro('preco', gerenciarOrdemForm)">
+              {{ getErrorMessage('preco', gerenciarOrdemForm, fieldLabels) }}
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Quantidade</mat-label>
+            <input type="number" matInput formControlName="quantidade" required (input)="setQuantidade($event)"
+              #input />
+            <mat-error *ngIf="exibirErro('quantidade', gerenciarOrdemForm)">
+              {{ getErrorMessage('quantidade', gerenciarOrdemForm, fieldLabels) }}
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Total</mat-label>
+            <input matInput formControlName="total" required readonly />
+            <mat-error *ngIf="exibirErro('total', gerenciarOrdemForm)">
+              {{ getErrorMessage('total', gerenciarOrdemForm, fieldLabels) }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+
+    <div>
+      <button style="margin-left: 1rem;" mat-flat-button color="primary" [disabled]="validarAddProduto()" (click)="Adicionar()">Adicionar ao
+        Carrinho
+        <mat-icon>shopping_cart</mat-icon></button>
+      <button style="margin-right: 1rem;" mat-flat-button color="primary" class="float-right">
+        <mat-icon>monetization_on</mat-icon> Valor Total: {{totalCompra}}
+      </button>
+    </div>
+  </mat-card>
+  <hr>
+
+  <div class="responsive_table">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let element">{{element.nome}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="categoria">
+        <th mat-header-cell *matHeaderCellDef>Categoria</th>
+        <td mat-cell *matCellDef="let element">{{element.categoria}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="preco">
+        <th mat-header-cell *matHeaderCellDef>Preço</th>
+        <td mat-cell *matCellDef="let element">{{element.preco | currency:'BRL':'symbol':'1.2-2'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantidade">
+        <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+        <td mat-cell *matCellDef="let element">{{element.quantidade}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef>Total</th>
+        <td mat-cell *matCellDef="let element">{{element.total | currency:'BRL':'symbol':'1.2-2'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef>Deletar</th>
+        <td mat-cell *matCellDef="let element; let i = index" class="action-link">
+          <button mat-icon-button color="primary" matTooltip="Editar" (click)="handleDeleteAction(i, element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+</div>

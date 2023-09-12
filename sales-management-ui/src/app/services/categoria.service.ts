@@ -1,8 +1,8 @@
-import { Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Categoria } from '../models/categoria';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +26,9 @@ export class CategoriaService {
 
   updateCategoria(categoria: any): Observable<any> {
     return this.httpClient.post(`${this.url}/updateCategoria`, categoria, { headers: this.headers });
+  }
+
+  getFilterCategoria() {
+    return this.httpClient.get(`${this.url}/getAllCategoria?filterValue=true`);
   }
 }
