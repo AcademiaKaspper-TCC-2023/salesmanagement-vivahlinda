@@ -59,8 +59,7 @@ public class VendaServiceImpl implements VendaService {
                 String dados = "Cliente: " + requestMap.get("nomeCliente") + "\n" +
                         "Número de Contato: " + requestMap.get("noContatoCliente") + "\n" +
                         "CPF: " + requestMap.get("cpfCliente") + "\n" +
-                        "E-mail: " + requestMap.get("emailCliente") + "\n" +
-                        "Contato: " + requestMap.get("noContatoCliente") + "\n" +
+                        "E-mail: " + requestMap.get("emailCliente")  + "\n" +
                         "Forma de pagamento: " + requestMap.get("formaPagamento") + "\n" +
                         "Vendedor: " + requestMap.get("loginVendedor") + "\n\n";
 
