@@ -230,7 +230,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         try {
             Usuario newUser = usuarioRepository.findByEmail(userDetails.getUsername());
 
-            String nome = newUser.getNome() + " - " + newUser.getCpf();
+            String nome = newUser.getNome();
             String email = newUser.getEmail();
             String role = newUser.getRole();
 

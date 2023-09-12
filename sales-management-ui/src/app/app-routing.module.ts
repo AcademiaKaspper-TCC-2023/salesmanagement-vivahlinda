@@ -9,6 +9,7 @@ import { ListagemCategoriaComponent } from './components/categoria/listagem-cate
 import { ListagemProdutoComponent } from './components/produto/listagem-produto/listagem-produto.component';
 import { VendaListagemComponent } from './components/venda/venda-listagem/venda-listagem.component';
 import { OrdemVendaComponent } from './components/venda/ordem-venda/ordem-venda.component';
+import { UsuarioSistemaComponent } from './components/usuario/usuario-sistema/usuario-sistema.component';
 
 const routes: Routes = [
   { path: 'entrar', component: LoginComponent },
@@ -43,6 +44,12 @@ const routes: Routes = [
         path: 'venda/ordens',
         component: OrdemVendaComponent,
         data: { expectedRole: ['usuario', 'admin'] },
+        canActivate: [RouteGuardService]
+      },
+      {
+        path: 'usuarios',
+        component: UsuarioSistemaComponent,
+        data: { expectedRole: ['admin'] },
         canActivate: [RouteGuardService]
       },
       { path: 'alterarSenha', component: AlterarSenhaComponent },

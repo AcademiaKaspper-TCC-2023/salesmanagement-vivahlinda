@@ -48,6 +48,7 @@ import { TokenInterceptorInterceptor } from './services/token-interceptor.interc
 import { ViewVendaDialogComponent } from './components/venda/view-venda-dialog/view-venda-dialog.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { OrdemVendaComponent } from './components/venda/ordem-venda/ordem-venda.component';
+import { UsuarioSistemaComponent } from './components/usuario/usuario-sistema/usuario-sistema.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { OrdemVendaComponent } from './components/venda/ordem-venda/ordem-venda.
     VendaListagemComponent,
     DeleteVendaDialogComponent,
     ViewVendaDialogComponent,
-    OrdemVendaComponent
+    OrdemVendaComponent,
+    UsuarioSistemaComponent
   ],
   imports: [
     BrowserModule,

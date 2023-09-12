@@ -28,7 +28,7 @@
         Historico de Vendas
       </a>
 
-      <a mat-list-item routerLink="/">
+      <a mat-list-item routerLink="/usuarios" *ngIf="usuarioLogado.role === 'admin'">
         <i class="material-icons">people</i>
         Usuários
       </a>
