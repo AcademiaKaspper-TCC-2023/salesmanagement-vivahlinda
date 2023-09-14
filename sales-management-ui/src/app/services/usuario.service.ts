@@ -35,4 +35,12 @@ export class UsuarioService {
   perfil() {
     return this.httpClient.get(this.url + "/usuario/perfil")
   }
+
+  findAllUsuario() {
+    return this.httpClient.get(this.url + "/usuario/get")
+  }
+
+  update(dados: any) {
+    return this.httpClient.post(this.url + "/usuario/update", dados, { headers: new HttpHeaders().set('Content-Type', 'application/json') })
+  }
 }
