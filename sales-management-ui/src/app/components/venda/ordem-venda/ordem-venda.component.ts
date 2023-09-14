@@ -82,7 +82,7 @@ export class OrdemVendaComponent implements OnInit {
       ],
       cpfCliente: [
         null,
-        [Validators.required, Validators.pattern(ConstantesGeral.cpfRegex)],
+        [Validators.required],
       ],
       formaPagamento: [null, Validators.required],
       produto: [null, Validators.required],

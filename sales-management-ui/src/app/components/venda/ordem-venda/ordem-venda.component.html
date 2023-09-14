@@ -30,11 +30,13 @@
 
           <mat-form-field appearance="outline" fxFlex>
             <mat-label>CPF do Cliente</mat-label>
-            <input maxlength="15" matInput formControlName="cpfCliente" required />
+            <input maxlength="14" matInput formControlName="cpfCliente" required
+              [value]="gerenciarOrdemForm.get('cpfCliente').value | cpf" />
             <mat-error *ngIf="exibirErro('cpfCliente', gerenciarOrdemForm)">
               {{ getErrorMessage('cpfCliente', gerenciarOrdemForm, fieldLabels) }}
             </mat-error>
           </mat-form-field>
+
 
           <mat-form-field appearance="outline" fxFlex>
             <mat-label>E-mail Cliente</mat-label>
@@ -47,12 +49,12 @@
 
           <mat-form-field appearance="outline" fxFlex>
             <mat-label>Contato Cliente</mat-label>
-            <input maxlength="11" matInput formControlName="noContatoCliente" required />
+            <input maxlength="11" matInput formControlName="noContatoCliente" required
+              [value]="gerenciarOrdemForm.get('noContatoCliente').value | telefone" />
             <mat-error *ngIf="exibirErro('noContatoCliente', gerenciarOrdemForm)">
               {{ getErrorMessage('noContatoCliente', gerenciarOrdemForm, fieldLabels) }}
             </mat-error>
           </mat-form-field>
-
 
           <mat-form-field appearance="outline" fxFlex>
             <mat-label>Forma de Pagamento</mat-label>
@@ -100,15 +102,14 @@
             </mat-select>
           </mat-form-field>
 
-
           <mat-form-field appearance="outline" fxFlex>
             <mat-label>Preço</mat-label>
-            <input matInput formControlName="preco" required readonly />
+            <input matInput [value]="gerenciarOrdemForm.get('preco').value | currency:'BRL'"
+              formControlName="preco" required readonly />
             <mat-error *ngIf="exibirErro('preco', gerenciarOrdemForm)">
               {{ getErrorMessage('preco', gerenciarOrdemForm, fieldLabels) }}
             </mat-error>
           </mat-form-field>
-
 
           <mat-form-field appearance="outline" fxFlex>
             <mat-label>Quantidade</mat-label>
@@ -119,10 +120,10 @@
             </mat-error>
           </mat-form-field>
 
-
           <mat-form-field appearance="outline" fxFlex>
             <mat-label>Total</mat-label>
-            <input matInput formControlName="total" required readonly />
+            <input matInput [value]="gerenciarOrdemForm.get('total').value | currency:'BRL'"
+              formControlName="total" required readonly />
             <mat-error *ngIf="exibirErro('total', gerenciarOrdemForm)">
               {{ getErrorMessage('total', gerenciarOrdemForm, fieldLabels) }}
             </mat-error>
@@ -132,12 +133,14 @@
     </form>
 
     <div>
-      <button style="margin-left: 1rem;" mat-flat-button color="primary" [disabled]="validarAddProduto()" (click)="Adicionar()">Adicionar ao
+      <button style="margin-left: 1rem;" mat-flat-button color="primary" [disabled]="validarAddProduto()"
+        (click)="Adicionar()">Adicionar ao
         Carrinho
         <mat-icon>shopping_cart</mat-icon></button>
-      <button style="margin-right: 1rem;" mat-flat-button color="primary" class="float-right">
-        <mat-icon>monetization_on</mat-icon> Valor Total: {{totalCompra}}
+        <button style="margin-right: 1rem;" mat-flat-button color="primary" class="float-right">
+          <mat-icon>monetization_on</mat-icon> Valor Total: {{totalCompra | currency:'BRL'}}
       </button>
+
     </div>
   </mat-card>
   <hr>
@@ -157,7 +160,7 @@
 
       <ng-container matColumnDef="preco">
         <th mat-header-cell *matHeaderCellDef>Preço</th>
-        <td mat-cell *matCellDef="let element">{{element.preco | currency:'BRL':'symbol':'1.2-2'}}</td>
+        <td mat-cell *matCellDef="let element">{{element.preco | currency:'BRL'}}</td>
       </ng-container>
 
       <ng-container matColumnDef="quantidade">
@@ -167,7 +170,7 @@
 
       <ng-container matColumnDef="total">
         <th mat-header-cell *matHeaderCellDef>Total</th>
-        <td mat-cell *matCellDef="let element">{{element.total | currency:'BRL':'symbol':'1.2-2'}}</td>
+        <td mat-cell *matCellDef="let element">{{element.total | currency:'BRL'}}</td>
       </ng-container>
 
       <ng-container matColumnDef="editar">

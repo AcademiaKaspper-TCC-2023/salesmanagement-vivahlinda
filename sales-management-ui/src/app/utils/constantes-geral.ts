@@ -29,5 +29,4 @@ export class ConstantesGeral {
   public static perfil: string = 'Perfil do usuário:';
   static erroPerfil: string = 'Erro ao buscar o perfil do usuário: ';
 
-  public static cpfRegex: string = '^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$';
 }

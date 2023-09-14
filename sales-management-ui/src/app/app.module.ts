@@ -1,6 +1,7 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -17,6 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -27,7 +29,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateCategoriaDialogComponent } from './components/categoria/create-categoria-dialog/create-categoria-dialog.component';
+import {
+  CreateCategoriaDialogComponent,
+} from './components/categoria/create-categoria-dialog/create-categoria-dialog.component';
 import { EditCategoriaDialogComponent } from './components/categoria/edit-categoria-dialog/edit-categoria-dialog.component';
 import { ListagemCategoriaComponent } from './components/categoria/listagem-categoria/listagem-categoria.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -39,15 +43,19 @@ import { DeleteProdutoDialogComponent } from './components/produto/delete-produt
 import { EditProdutoDialogComponent } from './components/produto/edit-produto-dialog/edit-produto-dialog.component';
 import { ListagemProdutoComponent } from './components/produto/listagem-produto/listagem-produto.component';
 import { AlterarSenhaComponent } from './components/usuario/alterar-senha/alterar-senha.component';
+import { UsuarioSistemaComponent } from './components/usuario/usuario-sistema/usuario-sistema.component';
 import { DeleteVendaDialogComponent } from './components/venda/delete-venda-dialog/delete-venda-dialog.component';
+import { OrdemVendaComponent } from './components/venda/ordem-venda/ordem-venda.component';
 import { VendaListagemComponent } from './components/venda/venda-listagem/venda-listagem.component';
+import { ViewVendaDialogComponent } from './components/venda/view-venda-dialog/view-venda-dialog.component';
 import { EsqueciMinhaSenhaDialogComponent } from './esqueci-minha-senha-dialog/esqueci-minha-senha-dialog.component';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
-import { ViewVendaDialogComponent } from './components/venda/view-venda-dialog/view-venda-dialog.component';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { OrdemVendaComponent } from './components/venda/ordem-venda/ordem-venda.component';
-import { UsuarioSistemaComponent } from './components/usuario/usuario-sistema/usuario-sistema.component';
+import { CpfPipe } from './utils/cpf.pipe';
 import { PrecoPipe } from './utils/preco.pipe';
+import { TelefonePipe } from './utils/telefone.pipe';
+
+registerLocaleData(localePt);
+
 
 @NgModule({
   declarations: [
@@ -71,6 +79,8 @@ import { PrecoPipe } from './utils/preco.pipe';
     OrdemVendaComponent,
     UsuarioSistemaComponent,
     PrecoPipe,
+    TelefonePipe,
+    CpfPipe,
   ],
   imports: [
     BrowserModule,
@@ -106,7 +116,7 @@ import { PrecoPipe } from './utils/preco.pipe';
     MatTooltipModule,
     MatSlideToggleModule,
   ],
-  providers: [
+  providers: [{ provide: LOCALE_ID, useValue: 'pt' },
     HttpClientModule,
     DatePipe,
 
