@@ -14,6 +14,8 @@ export class EditProdutoDialogComponent implements OnInit {
   respostaMensagem: any;
   categorias: any = [];
 
+  showEditField: boolean = false;
+
   constructor(
     public dialogRef: MatDialogRef<EditProdutoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,

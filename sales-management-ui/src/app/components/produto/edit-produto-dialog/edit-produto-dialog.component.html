@@ -22,10 +22,16 @@
     </mat-select>
   </mat-form-field>
 
-  <!-- Preço -->
-  <mat-form-field class="fullWidth">
+  <!-- Preço - Exibição -->
+  <mat-form-field class="fullWidth" *ngIf="!showEditField">
     <mat-label>Preço</mat-label>
-    <input matInput [(ngModel)]="data.preco" required type="text">
+    <input matInput [value]="data.preco | preco" readonly (focus)="showEditField = true">
+  </mat-form-field>
+
+  <!-- Preço - Edição -->
+  <mat-form-field class="fullWidth" *ngIf="showEditField">
+    <mat-label>Editar Preço</mat-label>
+    <input matInput [(ngModel)]="data.preco" type="text" (blur)="showEditField = false">
   </mat-form-field>
 
 </mat-dialog-content>

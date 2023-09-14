@@ -27,9 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {
-  CreateCategoriaDialogComponent,
-} from './components/categoria/create-categoria-dialog/create-categoria-dialog.component';
+import { CreateCategoriaDialogComponent } from './components/categoria/create-categoria-dialog/create-categoria-dialog.component';
 import { EditCategoriaDialogComponent } from './components/categoria/edit-categoria-dialog/edit-categoria-dialog.component';
 import { ListagemCategoriaComponent } from './components/categoria/listagem-categoria/listagem-categoria.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -46,9 +44,10 @@ import { VendaListagemComponent } from './components/venda/venda-listagem/venda-
 import { EsqueciMinhaSenhaDialogComponent } from './esqueci-minha-senha-dialog/esqueci-minha-senha-dialog.component';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
 import { ViewVendaDialogComponent } from './components/venda/view-venda-dialog/view-venda-dialog.component';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { OrdemVendaComponent } from './components/venda/ordem-venda/ordem-venda.component';
 import { UsuarioSistemaComponent } from './components/usuario/usuario-sistema/usuario-sistema.component';
+import { PrecoPipe } from './utils/preco.pipe';
 
 @NgModule({
   declarations: [
@@ -70,7 +69,8 @@ import { UsuarioSistemaComponent } from './components/usuario/usuario-sistema/us
     DeleteVendaDialogComponent,
     ViewVendaDialogComponent,
     OrdemVendaComponent,
-    UsuarioSistemaComponent
+    UsuarioSistemaComponent,
+    PrecoPipe,
   ],
   imports: [
     BrowserModule,
@@ -104,7 +104,7 @@ import { UsuarioSistemaComponent } from './components/usuario/usuario-sistema/us
     MatPaginatorModule,
     MatSortModule,
     MatTooltipModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
   ],
   providers: [
     HttpClientModule,
@@ -113,9 +113,9 @@ import { UsuarioSistemaComponent } from './components/usuario/usuario-sistema/us
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

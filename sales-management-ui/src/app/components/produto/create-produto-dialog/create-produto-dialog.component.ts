@@ -14,6 +14,8 @@ export class CreateProdutoDialogComponent implements OnInit {
   respostaMensagem: any;
   categorias: any = [];
 
+  showEditField: boolean = false;
+
   data = {
     categoriaId: '',
     nome: '',
