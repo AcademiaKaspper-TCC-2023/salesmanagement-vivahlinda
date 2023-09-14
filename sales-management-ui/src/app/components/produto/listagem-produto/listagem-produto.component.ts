@@ -31,6 +31,8 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
 
   usuarioLogado: any;
 
+  data: any = {};
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -105,6 +107,7 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(CreateProdutoDialogComponent, {
       width: '800px',
       height: '500px',
+      data: { ...this.data },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

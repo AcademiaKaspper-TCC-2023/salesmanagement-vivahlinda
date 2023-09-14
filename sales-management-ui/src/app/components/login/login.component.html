@@ -70,7 +70,7 @@
 
             <mat-form-field class="fullWidth">
               <mat-label>CPF</mat-label>
-              <input matInput placeholder="CPF" type="text" formControlName="cpf" required
+              <input maxlength="14" matInput placeholder="CPF" type="text" formControlName="cpf" required
                 [value]="inscreverForm.get('cpf').value | cpf" />
               <mat-error *ngIf="exibirErro('cpf', inscreverForm)">
                 {{ getErrorMessage('cpf', inscreverForm, fieldLabels) }}
@@ -79,7 +79,7 @@
 
             <mat-form-field class="fullWidth">
               <mat-label>Número de Contato</mat-label>
-              <input matInput placeholder="Número de Contato" type="text" formControlName="numeroContato" required
+              <input maxlength="11" matInput placeholder="Número de Contato" type="text" formControlName="numeroContato" required
                 [value]="inscreverForm.get('numeroContato').value | telefone" />
               <mat-error *ngIf="exibirErro('numeroContato', inscreverForm)">
                 {{ getErrorMessage('numeroContato', inscreverForm, fieldLabels) }}
