@@ -6,25 +6,32 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 import { CreateCategoriaDialogComponent } from '../create-categoria-dialog/create-categoria-dialog.component';
 import { EditCategoriaDialogComponent } from '../edit-categoria-dialog/edit-categoria-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-listagem-categoria',
   templateUrl: './listagem-categoria.component.html',
-  styleUrls: ['./listagem-categoria.component.css']
+  styleUrls: ['./listagem-categoria.component.css'],
 })
 export class ListagemCategoriaComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'nome', 'editar'];
   dataSource = new MatTableDataSource<any>();
+  usuarioLogado: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   isLoading = false;
 
-  constructor(private categoriaService: CategoriaService, public dialog: MatDialog) { }
+  constructor(
+    private categoriaService: CategoriaService,
+    public dialog: MatDialog,
+    private usuarioService: UsuarioService,
+  ) {}
 
   ngOnInit() {
     this.carregarTabela();
+    this.getPerfil();
   }
 
   ngAfterViewInit() {
@@ -34,7 +41,7 @@ export class ListagemCategoriaComponent implements AfterViewInit, OnInit {
 
   private carregarTabela() {
     this.isLoading = true;
-    this.categoriaService.getAllCategoria().subscribe(data => {
+    this.categoriaService.getAllCategoria().subscribe((data) => {
       this.dataSource.data = data;
       this.isLoading = false;
     });
@@ -53,10 +60,10 @@ export class ListagemCategoriaComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(EditCategoriaDialogComponent, {
       width: '700px',
       height: '400px',
-      data: row
+      data: row,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.isLoading = true;
         this.categoriaService.updateCategoria(result).subscribe(() => {
@@ -73,7 +80,7 @@ export class ListagemCategoriaComponent implements AfterViewInit, OnInit {
       height: '400px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.isLoading = true;
         this.categoriaService.addCategoria(result).subscribe(() => {
@@ -81,6 +88,17 @@ export class ListagemCategoriaComponent implements AfterViewInit, OnInit {
           this.carregarTabela();
         });
       }
+    });
+  }
+
+  getPerfil() {
+    this.usuarioService.perfil().subscribe({
+      next: (resp: any) => {
+        this.usuarioLogado = resp;
+      },
+      error: (error) => {
+        console.log('Erro ao buscar perfil do usuario', error);
+      },
     });
   }
 }

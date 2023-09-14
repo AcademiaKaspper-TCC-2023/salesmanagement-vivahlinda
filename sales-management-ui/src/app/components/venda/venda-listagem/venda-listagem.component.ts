@@ -10,27 +10,44 @@ import { ConstantesGeral } from 'src/app/utils/constantes-geral';
 
 import { DeleteVendaDialogComponent } from '../delete-venda-dialog/delete-venda-dialog.component';
 import { ViewVendaDialogComponent } from '../view-venda-dialog/view-venda-dialog.component';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-venda-listagem',
   templateUrl: './venda-listagem.component.html',
-  styleUrls: ['./venda-listagem.component.css']
+  styleUrls: ['./venda-listagem.component.css'],
 })
 export class VendaListagemComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['nomeCliente', 'noContatoCliente', 'formaPagamento', 'loginVendedor', 'dataVenda', 'totalCompra', 'acoes'];
+  displayedColumns: string[] = [
+    'nomeCliente',
+    'noContatoCliente',
+    'formaPagamento',
+    'loginVendedor',
+    'dataVenda',
+    'totalCompra',
+    'acoes',
+  ];
   dataSource = new MatTableDataSource<any>();
 
   respostaMensagem: any;
+
+  usuarioLogado: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   isLoading = false;
 
-  constructor(private vendaService: VendaService, public dialog: MatDialog, private snackbarService: SnackbarService) { }
+  constructor(
+    private vendaService: VendaService,
+    public dialog: MatDialog,
+    private snackbarService: SnackbarService,
+    private usuarioService: UsuarioService
+  ) {}
 
   ngOnInit() {
     this.carregarTabela();
+    this.getPerfil();
   }
 
   ngAfterViewInit() {
@@ -40,7 +57,7 @@ export class VendaListagemComponent implements AfterViewInit, OnInit {
 
   carregarTabela() {
     this.isLoading = true;
-    this.vendaService.getVenda().subscribe(data => {
+    this.vendaService.getVenda().subscribe((data) => {
       this.dataSource.data = data;
       this.isLoading = false;
     });
@@ -60,43 +77,47 @@ export class VendaListagemComponent implements AfterViewInit, OnInit {
       width: '950px',
       maxHeight: '600px',
       minHeight: '300px',
-      data: row
+      data: row,
     });
   }
-
-
 
   openDeleteDialog(row: any): void {
     const dialogRef = this.dialog.open(DeleteVendaDialogComponent, {
       width: '350px',
       height: '300PX',
-      data: row
+      data: row,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.isLoading = true;
-        this.vendaService.deleteById(result).subscribe((response: any) => {
-          this.isLoading = false;
-          this.carregarTabela();
-          this.respostaMensagem = response?.mensagem;
-          dialogRef.close();
-          this.snackbarService.openSnackBar(this.respostaMensagem, "");
-        }, (error) => {
-          if (error.error?.mensagem) {
-            this.respostaMensagem = error.error?.mensagem;
-          } else {
-            this.respostaMensagem = ConstantesGeral.erroGenerico;
+        this.vendaService.deleteById(result).subscribe(
+          (response: any) => {
+            this.isLoading = false;
+            this.carregarTabela();
+            this.respostaMensagem = response?.mensagem;
+            dialogRef.close();
+            this.snackbarService.openSnackBar(this.respostaMensagem, '');
+          },
+          (error) => {
+            if (error.error?.mensagem) {
+              this.respostaMensagem = error.error?.mensagem;
+            } else {
+              this.respostaMensagem = ConstantesGeral.erroGenerico;
+            }
+            this.snackbarService.openSnackBar(
+              this.respostaMensagem,
+              ConstantesGeral.error
+            );
+            dialogRef.close();
           }
-          this.snackbarService.openSnackBar(this.respostaMensagem, ConstantesGeral.error);
-          dialogRef.close();
-        });
+        );
       }
     });
   }
 
   downloadRelatorio(valores: any) {
-    this.isLoading
+    this.isLoading;
     var dados = {
       nome: valores.nome,
       email: valores.email,
@@ -105,15 +126,26 @@ export class VendaListagemComponent implements AfterViewInit, OnInit {
       pagamento: valores.pagamento,
       totalCompra: valores.totalCompra.toString,
       detalheProduto: valores.detalheProduto,
-    }
+    };
 
     this.downloadFile(valores.uuid, dados);
   }
 
   downloadFile(nomeArquivo: any, dados: any) {
-    this.isLoading
+    this.isLoading;
     this.vendaService.getPdf(dados).subscribe((response) => {
-      saveAs(response, nomeArquivo + '.pdf')
-    })
+      saveAs(response, nomeArquivo + '.pdf');
+    });
+  }
+
+  getPerfil() {
+    this.usuarioService.perfil().subscribe({
+      next: (resp: any) => {
+        this.usuarioLogado = resp;
+      },
+      error: (error) => {
+        console.log('Erro ao buscar perfil do usuario', error);
+      },
+    });
   }
 }

@@ -10,6 +10,7 @@ import { ConstantesGeral } from 'src/app/utils/constantes-geral';
 import { CreateProdutoDialogComponent } from '../create-produto-dialog/create-produto-dialog.component';
 import { DeleteProdutoDialogComponent } from '../delete-produto-dialog/delete-produto-dialog.component';
 import { EditProdutoDialogComponent } from '../edit-produto-dialog/edit-produto-dialog.component';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-listagem-produto',
@@ -28,6 +29,8 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
 
   respostaMensagem: any;
 
+  usuarioLogado: any;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -37,10 +40,12 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
     private produtoService: ProdutoService,
     public dialog: MatDialog,
     private snackbarService: SnackbarService,
-  ) {}
+    private usuarioService: UsuarioService
+  ) { }
 
   ngOnInit() {
     this.carregarTabela();
+    this.getPerfil();
   }
 
   ngAfterViewInit() {
@@ -192,5 +197,16 @@ export class ListagemProdutoComponent implements AfterViewInit, OnInit {
         );
       }
     );
+  }
+
+  getPerfil() {
+    this.usuarioService.perfil().subscribe({
+      next: (resp: any) => {
+        this.usuarioLogado = resp;
+      },
+      error: (error) => {
+        console.log('Erro ao buscar perfil do usuario', error);
+      }
+    });
   }
 }

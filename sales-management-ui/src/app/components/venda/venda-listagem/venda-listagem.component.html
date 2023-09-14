@@ -57,7 +57,7 @@
             <mat-icon>download</mat-icon>
           </button>
 
-          <button mat-icon-button color="warn" class="action-button" matTooltip="Excluir Venda" (click)="openDeleteDialog(row)">
+          <button [disabled]="usuarioLogado?.role !== 'admin'" mat-icon-button color="warn" class="action-button" matTooltip="Excluir Venda" (click)="openDeleteDialog(row)">
             <mat-icon>delete</mat-icon>
           </button>
 
