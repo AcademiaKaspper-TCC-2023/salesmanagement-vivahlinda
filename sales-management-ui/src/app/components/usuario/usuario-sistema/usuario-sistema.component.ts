@@ -13,7 +13,7 @@ import { ConstantesGeral } from 'src/app/utils/constantes-geral';
 })
 export class UsuarioSistemaComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['nome', 'cpf', 'email', 'numeroContato', 'isAtivo'];
+  displayedColumns: string[] = ['nome', 'cpf', 'email', 'numeroContato', 'dataCriacao', 'isAtivo'];
   dataSource = new MatTableDataSource<any>();
 
   respostaMensagem: any;

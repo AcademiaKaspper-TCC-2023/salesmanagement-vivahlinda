@@ -102,7 +102,7 @@ public class VendaServiceImpl implements VendaService {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 String dataHoraImpressao = sdf.format(new Date());
                 Paragraph footer = new Paragraph("\n\n\n\n\nTotal: R$ " + requestMap.get("totalCompra") + "\n"
-                        + "OBRIGADO PELA PREFERÊNCIA!" + "\n" + VivahLindaUtils.getDataHoraAtualFormatada() //TODO: AJUSTAR ESSA HORA FIXA
+                        + "OBRIGADO PELA PREFERÊNCIA!" + "\n"
                         + "\nHorário da impressão do documento: " + dataHoraImpressao, getFont("Dados"));
                 documento.add(footer);
 
